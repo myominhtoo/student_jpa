@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lionel.student_jpa.model.Student;
+import com.lionel.student_jpa.service.CourseService;
 import com.lionel.student_jpa.service.StudentService;
 import com.lionel.student_jpa.utils.Generator;
 
@@ -24,7 +25,10 @@ import com.lionel.student_jpa.utils.Generator;
 public class StudentController {
 
 	@Autowired
-	StudentService studentDAO;
+	StudentService studentService;
+
+	@Autowired
+	CourseService courseService;
     
     @GetMapping( value = "/students" )
 	public String getStudentsPage( HttpServletRequest req , ModelMap model   )
@@ -97,8 +101,7 @@ public class StudentController {
 		// }
 		
 		model.addAttribute( "student", new Student());
-		// CourseService.setAttendCoursesToStudents( studentDAO, foundStudents );
-		model.addAttribute( "students", foundStudents );
+		model.addAttribute( "students", studentService.findAll() );
 		
 		return "STU003";
 		
@@ -107,10 +110,10 @@ public class StudentController {
 	@GetMapping( value = "/student/new" )
 	public ModelAndView getStudentCreatePage( ModelMap model )
 	{
-		// model.addAttribute( "courses", courseDAO.find() ); 
+		model.addAttribute( "courses", courseService.findAll() ); 
 		
 		Student student = new Student();
-		// student.setId( Generator.generateId( studentDAO.getMaxId() , "STU" ));
+		student.setId( Generator.generateId( studentService.getMaxId() , "STU" ));
 		
 		return new ModelAndView( "STU001" , "student" , student );
 	}
@@ -121,25 +124,17 @@ public class StudentController {
 
 		if( bind.hasErrors() )
 		{
-			// model.addAttribute( "courses", courseDAO.find() ); 
+			model.addAttribute( "courses", courseService.findAll() ); 
 			model.addAttribute( "student" , student );
 			return "STU001";
 		}
 		
-		// int status1 = studentDAO.save( student );
-		int status2 = 0;
-		
-		// if( student.getCourses().size() > 0 )
-		// {
-		// 	status2  = studentDAO.attendCourses( student.getId() , student.getCourses() );
-		// }
-		
-		// if( status1 + status2  == 0 )
-		// {
-		// 	model.addAttribute( "error", "Something went wrong!");
-		// 	model.addAttribute( "student", student );
-		// 	return "STU001";
-		// }
+		if( !studentService.save( student ))
+		{
+			model.addAttribute( "error", "Something went wrong!");
+			model.addAttribute( "student", student );
+			return "STU001";
+		}
 		
 		return "redirect:/students?msg=Successfully Registered!";
 	}
@@ -148,54 +143,29 @@ public class StudentController {
 	@GetMapping( value = "/students/{id}" )
 	public String getStudentDetailPage( @PathVariable("id") String id , ModelMap model )
 	{
-		// Student student = studentDAO.findById( id );
+		Student student = studentService.findById( id );
 		
-	// 	if( student != null  )
-	// 	{
-	// 			ArrayList<String> courses = new ArrayList<>();
-				
-	// 			for( StudentAttendCourse attend : studentDAO.findAttendCoursesById( id ) )
-	// 			{
-	// 				courses.add( attend.getCourseId() );
-	// 			}
-	// 			student.setCourses( courses );
-			
-	// 		model.addAttribute( "student" , student  );
-	// 	}
-	// 	else
-	// 	{
-	// 		return "redirect:/users?msg=Something went wrong!";
-	// 	}
+		if( student == null )
+		{
+			return "redirect:/users?msg=Something went wrong!";
+		}
 		
-	// 	model.addAttribute( "courses", courseDAO.find() ); 
+		model.addAttribute( "courses", courseService.findAll() ); 
 		
-	// 	return "STU002";
-	// }
+		return "STU002";
+	}
 	
-	// @GetMapping( value = "/students/{id}/update" )
-	// public String getStuentUpdatePage( @PathVariable("id") String id , ModelMap model )
-	// {
-	// 	Student student = studentDAO.findById( id );
+	@GetMapping( value = "/students/{id}/update" )
+	public String getStuentUpdatePage( @PathVariable("id") String id , ModelMap model )
+	{
+		Student student = studentService.findById( id );
 		
-	// 	if( student != null )
-	// 	{
-	// 		ArrayList<String> courses = new ArrayList<>();
-				
-	// 		for( StudentAttendCourse attend : studentDAO.findAttendCoursesById( id ) )
-	// 		{
-	// 			courses.add( attend.getCourseId() );
-	// 		}
-	// 		student.setCourses( courses );
-				
-	// 		model.addAttribute( "student" , student  );
-	// 	}
-	// 	else
-	// 	{
-	// 		return "redirect:/users?msg=Something went wrong!";
-	// 	}
-		
-		
-		// model.addAttribute( "courses", courseDAO.find() ); 
+		if( student != null )
+		{
+			return "redirect:/users?msg=Something went wrong!";			
+		}
+
+		model.addAttribute( "courses", courseService.findAll() ); 
 		
 		return "STU002-01";
 	}
@@ -204,31 +174,20 @@ public class StudentController {
 	@PostMapping(  value = "/students/{id}/update" )
 	public String postStudentUpdatePage( @PathVariable("id") String id , @ModelAttribute("student") @Validated Student student , BindingResult bind  , ModelMap model )
 	{
-		// if( bind.hasErrors() )
-		// {
-		// 	model.addAttribute( "courses", courseDAO.find() ); 
-		// 	model.addAttribute( "student", student );
-		// 	return "STU002-01";
-		// }
+		if( bind.hasErrors() )
+		{
+			model.addAttribute( "courses", courseService.findAll() ); 
+			model.addAttribute( "student", student );
+			return "STU002-01";
+		}
 		
-		// studentDAO.deleteAttendCourses( id );
-		
-		// int status1 = studentDAO.update( student );
-		// int status2 = 0;
-	
-		
-		// if( student.getCourses().size() > 0 )
-		// {
-		// 	status2  = studentDAO.attendCourses( student.getId() , student.getCourses() );
-		// }
-		
-	    // if( status1 + status2 == 0 )
-	    // {
-	    // 	model.addAttribute( "courses", courseDAO.find() ); 
-	    // 	model.addAttribute( "error", "Something went wrong!");
-	    // 	model.addAttribute( "student", student );
-	    // 	return "STU002-01";
-	    // }
+	    if( !studentService.updateOne( student) )
+	    {
+	    	model.addAttribute( "courses", courseService.findAll() ); 
+	    	model.addAttribute( "error", "Something went wrong!");
+	    	model.addAttribute( "student", student );
+	    	return "STU002-01";
+	    }
 	    
 	    return "redirect:/students?msg=Successfully Updated!";
 	
@@ -237,13 +196,12 @@ public class StudentController {
 	@GetMapping( value = "/students/{id}/delete" )
 	public String getStudentDelete( @PathVariable("id") String id , ModelMap model )
 	{
-		// int status = studentDAO.deleteOne( id ) + studentDAO.deleteAttendCourses( id );
 		
-		// if( status  == 0 )
-		// {
-		// 	model.addAttribute( "error", "Something went wrong!");
-		// 	return "STU003";
-		// }
+		if( !studentService.deleteOne( id ) )
+		{
+			model.addAttribute( "error", "Something went wrong!");
+			return "STU003";
+		}
 		
 		return "redirect:/students?msg=Successfully Deleted!";
 	
