@@ -1,0 +1,33 @@
+<div th:fragment="header" id="testheader">
+        <div class="container">
+            <div class=row>        
+                <div class="col-md-5 ">
+            <a href="/home"><h3>Student Registration</h3></a>
+        </div>  
+        <div class="col-md-6">
+            <p>User: ${sessionScope.authUser.id} ${sessionScope.authUser.name}</p>
+            <p>Current Date : <span id="year">YY</span>.<span id="month">MM</span>.<span id="day">DD</span> </p>
+        </div>  
+        <div class="col-md-1" >
+            <a href="/logout" class="btn btn-sm btn-danger text-light" onClick="return confirm('Are you sure to logout?');">Logout</a>
+        </div>        
+    </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+	const year = document.getElementById("year");
+	const month = document.getElementById("month");
+	const day = document.getElementById("day");
+	
+	const date = new Date();
+	
+	year.textContent = date.getFullYear();
+	month.textContent = (function( name ){
+		return ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dev"][name];
+	})( date.getMonth() );
+	day.textContent = date.getDate();
+
+</script>

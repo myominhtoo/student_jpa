@@ -8,4 +8,5 @@ import com.lionel.student_jpa.model.Course;
 @Repository
 public interface CourseRepo extends JpaRepository<Course,String> {
     
+    
 }

@@ -1,5 +1,6 @@
 package com.lionel.student_jpa.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,10 +24,19 @@ import lombok.NoArgsConstructor;
 public class Student 
 {
     @Id
+    @NotEmpty( message = "Student Id must not empty!")
     private String id;
+
+    @NotEmpty( message = "Name must not be empty!" )
     private String name;
+
+    @NotEmpty( message = "Gender must not be empty!")
     private String gender;
+
+    @NotEmpty( message = "DOB must not be empty!" )
     private String dob;
+
+    @NotEmpty( message = "Eduction must not be empty!")
     private String education;
 
     @ManyToMany
@@ -34,4 +46,7 @@ public class Student
         inverseJoinColumns = @JoinColumn( name = "course_id" )
     )
     List<Course> attendCourses;
+
+    @Transient
+    ArrayList<Course> courses;
 }
