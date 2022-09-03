@@ -71,6 +71,12 @@ public class UserService {
         return  isDuplicate;
     }
 
+    public String getMaxid(){
+        return userRepo.getMaxId();
+    }
 
+    public User findByEmail( String email ){
+        return userRepo.findByEmail( email ).get();
+    }
 
 }

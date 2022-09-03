@@ -14,4 +14,7 @@ public interface UserRepo extends JpaRepository<User,String> {
     @Query("SELECT * FROM users u WHERE u.email = ?1 ")
     Optional<User> findByEmail( String email );
 
+    @Query("SELECT MAX(id) max FROM users ")
+    String getMaxId();
+
 }

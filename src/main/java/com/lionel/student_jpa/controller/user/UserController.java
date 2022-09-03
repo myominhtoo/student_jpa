@@ -24,7 +24,7 @@ import com.lionel.student_jpa.utils.Generator;
 public class UserController {
     
     @Autowired
-    UserService userDAO;
+    UserService userService;
 
     @GetMapping( value = "/login" )
 	public ModelAndView getLoginPage()
@@ -42,26 +42,25 @@ public class UserController {
 			return "LGN001";
 		}
 		
-		// List<User> users = userDAO.findById( "%"+user.getId()+"%");
-		// boolean isOk = false;
+		User savedUser = userService.findById( user.getId() );
+		boolean isOk = false;
+
+		if( savedUser != null )
+		{
+			if( savedUser.getPassword().equals(user.getPassword()))
+			{
+				isOk = true;
+			}
+		}
 		
+		if( !isOk )
+		{
+			model.addAttribute( "error" , "Please check data again!");
+			model.addAttribute( "user", user );
+			return "LGN001";
+		}
 		
-		// if( users.size() > 0 )
-		// {
-		// 	if( users.get(0).getPassword().equals(user.getPassword()))
-		// 	{
-		// 		isOk = true;
-		// 	}
-		// }
-		
-		// if( !isOk )
-		// {
-		// 	model.addAttribute( "error" , "Please check data again!");
-		// 	model.addAttribute( "user", user );
-		// 	return "LGN001";
-		// }
-		
-		// req.getSession().setAttribute( "authUser", users.get(0) );
+		req.getSession().setAttribute( "authUser", savedUser );
 		return "MNU001";
 	}
 	
@@ -109,6 +108,8 @@ public class UserController {
 		// {
 		// 	model.addAttribute( "users", userDAO.find() );
 		// }
+
+		model.addAttribute( "users" , userService.findAll() );
 	
 		model.addAttribute( "user" ,  new User() );
 		
@@ -124,38 +125,35 @@ public class UserController {
 	@PostMapping( value = "/user/new" )
 	public String postUserCreate(@ModelAttribute("user") @Validated User user , BindingResult bind , ModelMap model  )
 	{
-		// if( bind.hasErrors() )
-		// {
-		// 	model.addAttribute( "user" , user );
-		// 	return "USR001";
-		// }
+		if( bind.hasErrors() )
+		{
+			model.addAttribute( "user" , user );
+			return "USR001";
+		}
 		
-		// if( !user.getPassword().equals(user.getConfirmPassword()))
-		// {
-		// 	model.addAttribute( "error", "Confirm password must be equal with password!");
-		// 	model.addAttribute( "user" , user );
-		// 	return "USR001";
-		// }
+		if( !user.getPassword().equals(user.getConfirmPassword()))
+		{
+			model.addAttribute( "error", "Confirm password must be equal with password!");
+			model.addAttribute( "user" , user );
+			return "USR001";
+		}
 		
-		// boolean isDuplicate = userDAO.findByEmail( user.getEmail() ) ==  null ? false : true;
 		
-		// if( isDuplicate )
-		// {
-		// 	model.addAttribute( "error", " Email must be unique!");
-		// 	model.addAttribute( "user" , user );
-		// 	return "USR001";
-		// }
+		if( userService.isEmailDuplicate( user.getEmail() ) )
+		{
+			model.addAttribute( "error", " Email must be unique!");
+			model.addAttribute( "user" , user );
+			return "USR001";
+		}
 	
-		// user.setId( Generator.generateId( userDAO.getMaxId() , "USR" ));
-		
-		// int status = userDAO.save( user );
-		
-		// if( status == 0 )
-		// {
-		// 	model.addAttribute( "error" , "Something went wrong!");
-		// 	model.addAttribute( "user" , user );
-		// 	return "USR001";
-		// }
+		user.setId( Generator.generateId( userService.getMaxid() , "USR" ));
+			
+		if( !userService.save( user ) )
+		{
+			model.addAttribute( "error" , "Something went wrong!");
+			model.addAttribute( "user" , user );
+			return "USR001";
+		}
 		
 		model.addAttribute( "msg", "Successfully Registered!");
 		model.addAttribute( "user", new User());
@@ -165,13 +163,11 @@ public class UserController {
 	@GetMapping( value = "/users/{id}/delete" )
 	public String getDeleteUser( @PathVariable("id") String id , ModelMap model )
 	{
-		// int status = userDAO.deleteOne( id );
-		
-		// if( status == 0 )
-		// {
-		// 	model.addAttribute( "error" , "Something went wrong!" );
-		// 	return "USR003";
-		// }
+		if( !userService.deleteOne( id ) )
+		{
+			model.addAttribute( "error" , "Something went wrong!" );
+			return "USR003";
+		}
 		
 		return "redirect:/users?msg=Successfully Deleted!";
 	}
@@ -180,11 +176,11 @@ public class UserController {
 	public String getUserUpdatePage( @PathVariable("id") String id , ModelMap model )
 	{
 		
-		// List<User> users = userDAO.findById( id );
+		User savedUser = userService.findById( id );
 		
-		// if( users.size() == 0 ) return "USR003?msg=Something went wrong!";
+		if( savedUser == null ) return "USR003?msg=Something went wrong!";
 		
-		// model.addAttribute( "user" , users.get(0) );
+		model.addAttribute( "user" , savedUser );
 		
 		return "USR002";
 		
@@ -193,41 +189,42 @@ public class UserController {
 	@PostMapping( value = "/users/{id}/update" )
 	public String postUserUpdate(@PathVariable("id") String id , @ModelAttribute("user") @Validated User user , BindingResult bind , ModelMap model , HttpServletRequest req )
 	{
-		// if( bind.hasErrors() )
-		// {
-		// 	model.addAttribute( "user", user);
-		// 	return "USR002";
-		// }
+		if( bind.hasErrors() )
+		{
+			model.addAttribute( "user", user);
+			return "USR002";
+		}
 		
-		// if( !user.getPassword().equals(user.getConfirmPassword()))
-		// {
-		// 	model.addAttribute( "error", "Confirm password must be equal with password!");
-		// 	model.addAttribute( "user" , user );
-		// 	return "USR002";
-		// }
+		if( !user.getPassword().equals(user.getConfirmPassword()))
+		{
+			model.addAttribute( "error", "Confirm password must be equal with password!");
+			model.addAttribute( "user" , user );
+			return "USR002";
+		}
+
+		User savedUser = userService.findByEmail( user.getEmail() );
 		
-		// if( !userDAO.findByEmail( user.getEmail() ).getId().equals( user.getId()) )
-		// {
-		// 	model.addAttribute( "error", "Email must be unique!");
-		// 	model.addAttribute( "user" , user );
-		// 	return "USR002";
-		// }
+		if( savedUser != null && !savedUser.getId().equals(user.getId()))
+		{
+			model.addAttribute( "error", "Email must be unique!");
+			model.addAttribute( "user" , user );
+			return "USR002";
+		}
+	
 		
-		// int status = userDAO.update( user );
+		if( !userService.updateOne( user ) )
+		{
+			model.addAttribute( "error" , "Something went wrong!");
+			model.addAttribute( "user" , user );
+			return "USR002";
+		}
 		
-		// if( status == 0 )
-		// {
-		// 	model.addAttribute( "error" , "Something went wrong!");
-		// 	model.addAttribute( "user" , user );
-		// 	return "USR002";
-		// }
+		User authUser = (User) req.getSession().getAttribute("authUser");
 		
-		// User authUser = (User) req.getSession().getAttribute("authUser");
-		
-		// if( user.getId().equals(authUser.getId()))
-		// {
-		// 	req.getSession().setAttribute( "authUser", user );
-		// }
+		if( user.getId().equals(authUser.getId()))
+		{
+			req.getSession().setAttribute( "authUser", user );
+		}
 		
 		return "redirect:/users?msg=Successfully Updated!";
 			
