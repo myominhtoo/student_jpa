@@ -17,7 +17,7 @@ import com.lionel.student_jpa.service.CourseService;
 public class CourseController {
 
 	@Autowired 
-	CourseService courseDAO;
+	CourseService courseService;
     
     @GetMapping( value = "/course/new" )
 	public ModelAndView getCreateCoursePage()
@@ -33,24 +33,22 @@ public class CourseController {
 			model.addAttribute( "course", course );
 			return "BUD003";
 		}
+	
 		
-		// boolean isDuplicate = courseDAO.findById(course.getId()) == null ? false : true;
+		if( courseService.isDuplicate( course.getId()) )
+		{
+			model.addAttribute( "error", "Duplicate Course Id!");
+			model.addAttribute( "course", course );
+			return "BUD003";
+		}
+	
 		
-		// if( isDuplicate )
-		// {
-		// 	model.addAttribute( "error", "Duplicate Course Id!");
-		// 	model.addAttribute( "course", course );
-		// 	return "BUD003";
-		// }
-		
-		// int status = courseDAO.save( course );
-		
-		// if( status == 0 )
-		// {
-		// 	model.addAttribute( "error" , "Something went wrong!" );
-		// 	model.addAttribute( "course" , course );
-		// 	return "BUD003";
-		// }
+		if( !courseService.save( course ))
+		{
+			model.addAttribute( "error" , "Something went wrong!" );
+			model.addAttribute( "course" , course );
+			return "BUD003";
+		}
 		
 		model.addAttribute( "msg", "Successfully Registered!" );
 		model.addAttribute( "course", new Course());
