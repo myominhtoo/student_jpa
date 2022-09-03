@@ -5,7 +5,7 @@
             <a href="/home"><h3>Student Registration</h3></a>
         </div>  
         <div class="col-md-6">
-            <p>User: ${sessionScope.authUser.id} ${sessionScope.authUser.name}</p>
+            <!-- <p th:if="${session.authUser != null}">User: <span th:text="${session.authUser.id}"></span> <span th:text="${session.authUser.name}"></span></p> -->
             <p>Current Date : <span id="year">YY</span>.<span id="month">MM</span>.<span id="day">DD</span> </p>
         </div>  
         <div class="col-md-1" >

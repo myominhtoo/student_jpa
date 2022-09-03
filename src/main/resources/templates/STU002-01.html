@@ -50,31 +50,31 @@
           		<h5 class="h5 text-danger text-center fw-bold ">${error}</h5>
           	</c:if>
           	
-        <form action="/students/${student.id}/update" method="post" modelAttribute="student">
+        <form th:action="/students/{id}/update(id=${student.id})" method="post" th:object="${student}">
         
 
             <h2 class="col-md-6 offset-md-2 mb-5 mt-4">Student Details</h2>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="studentID" class="col-md-2 col-form-label">Student ID</label>
-                <div class="col-md-4">
-                    <input type="text" path="id" cssClass="form-control" id="studentID" disabled="true" />
+                <div class="col-md-4">                   
+                    <input type="text" class="form-control" th:fied="*{id}"  readonly="true" />                  
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="name" class="col-md-2 col-form-label">Name</label>
                 <div class="col-md-4">
-                    <input type="text" path="name" cssClass="form-control" id="name" />
-                     <!-- <form:errors path="name"  cssClass="error" /> -->
+                    <input type="text" class="form-control" th:field="*{name}" placeholder="Student's name"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="h6 error"></span>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="dob" class="col-md-2 col-form-label">DOB</label>
                 <div class="col-md-4">
-                    <input type="date" path="dob" cssClass="form-control" id="dob" />
-                     <!-- <form:errors path="dob"  cssClass="error" /> -->
+                    <input type="date" class="form-control" th:field="*{dob}" placeholder="Enter dob" />
+                    <span th:text="${#fields.errors('dob')}" th:if="${#fields.hasErrors('dob')}" class="h6 error"></span>
                 </div>
             </div>
             <fieldset class="row mb-4">
@@ -82,19 +82,20 @@
                 <legend class="col-form-label col-md-2 pt-0">Gender</legend>
                 <div class="col-md-4">
                     <div class="form-check-inline">
-                        <!-- <form:radiobutton cssClass="form-check-input"  path="gender" value="Male"  /> -->
+             
+                        <input type="radio" th:field="*{gender}" value="0" class="form-check">
                         <label class="form-check-label" for="gridRadios1">
                             Male
                         </label>
                     </div>
                     <div class="form-check-inline">
-                        <!-- <form:radiobutton cssClass="form-check-input"  path="gender" value="Female"  /> -->
+                       <input type="radio" th:field="*{gender}" value="1" class="form-check">
                         <label class="form-check-label" for="gridRadios2">
                             Female
                         </label>
                     </div>
-                     <!-- <form:errors path="gender"  cssClass="error" /> -->
-    
+                    <br/>
+    				<span th:text="${#fields.errors('gender')}" th:if="${#fields.hasErrors('gender')}" class="h6 error"></span>
                 </div>
             </fieldset>
     
@@ -102,54 +103,48 @@
                 <div class="col-md-2"></div>
                 <label for="phone" class="col-md-2 col-form-label">Phone</label>
                 <div class="col-md-4">
-                    <input type="text" cssClass="form-control" path="phone"  placeholder="09" />
-                     <!-- <form:errors path="phone"  cssClass="error" /> -->
+                    <input type="text" class="form-control" th:field="*{phone}" placeholder="09" />
+                    <span th:text="${#fields.errors('phone')}" th:if="${#fields.hasErrors('phone')}" class="h6 error"></span>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="education" class="col-md-2 col-form-label">Education</label>
-      
                 <div class="col-md-4">
-                    <select path="education" cssClass="form-select" aria-label="Education" id="education">
+                    <select class="form-select" th:field="*{education}"  aria-label="Education" id="education">
+                    	<option value="" selected disabled >Choose Education</option>
                         <option value="1" >Bachelor of Information Technology</option>
                         <option value="2" >Diploma in IT</option>
-                        <option value="3">Bachelor of Computer Science</form>    
+                        <option value="3" >Bachelor of Computer Science</option>
+    
                     </select>
-                     <!-- <form:errors path="education"  cssClass="error" /> -->
+                    <span th:text="${#fields.errors('education')}" th:if="${#fields.hasErrors('education')}" class="h6 error"></span>
                 </div>
             </div>
             <fieldset class="row mb-4">
                 <div class="col-md-2"></div>
                 <legend class="col-form-label col-md-2 pt-0">Attend</legend>
- 
+                
+         
     
                 <div class="col-md-4">
-                    <!-- <c:if test="${courses != null && courses.size() > 0 }">
-                    	<c:forEach var="course" items="${courses}">
-                    			
-                    		<div class="form-check-inline col-md-2">
-		                        <form:checkbox cssClass="form-check-input" path="courses" value="${course.id}"
-/> 
-		                        <label class="form-check-label" for="gridRadios1">
-		                            ${course.name}
-		                        </label>
-                   			 </div>
-                    	</c:forEach>
-                    </c:if> -->
-                    
-                    <!-- <c:if test="${courses == null || courses.size() == 0 }">
-                    	<h5 class="h5">There is no course!!</h5>
-                    </c:if> -->
+                    	<div  th:each="course : ${courses}" class="form-check-inline col-md-2">
+		                    <input type="checkbox" th:field="*{attendCourses}" class="form-check-input" id="gridRadios1" value="${course.id}" />
+		                    <label th:text="${course.name}" class="form-check-label" for="gridRadios1">
+		                    </label>
+                   		</div>
+                
+                    	<h5 th:if="${ courses == null and courses.size() == 0 }" class="h5">There is no course!!</h5>
                 </div>
+                         
             </fieldset>
-            <div class="row mb-4">
+            <!-- <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="name" class="col-md-2 col-form-label">Photo</label>
                 <div class="col-md-4">
                     <input type="file" class="form-control" id="name">
                 </div>
-            </div>
+            </div> -->
     
             <div class="row mb-4">
                 <div class="col-md-4"></div>

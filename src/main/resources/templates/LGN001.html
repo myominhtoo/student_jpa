@@ -12,29 +12,20 @@
           <div class="login-header">
             <h1>Welcome!</h1>
             
-            <c:if test="${ error != null }">
-            	<p class="fw-bold h6 text-danger">${error}</p>
-            </c:if>
+            	<p th:text="${error}" th:unless="${ error != null }" class="fw-bold h6 text-danger"></p>
             
-            <c:if test="${ msg != null }">
-            	<p class="fw-bold h6 text-sucess">${msg}</p>
-            </c:if>
-            
-            <c:if test="${ param.msg != null }">
-    			<h5 class="h5 text-success">${param.msg}</h5>
-    		</c:if>
-    		
-    		<c:if test="${ param.error != null }">
-    			<h5 class="h5 text-danger">${param.error}</h5>
-    		</c:if>
-            
-            
-          </div>
+            	<p th:text="${msg}" th:unless="${ msg != null }" class="fw-bold h6 text-sucess"></p>
+          
+    			    <h5 th:text="${param.msg}" th:unless="${param.msg != null}" class="h5 text-success">${param.msg}</h5>
+  
+    			    <h5 class="h5 text-danger">${param.error}</h5>
+         </div>
         </div>
-        <form modelAttribute="user" cssClass="login-form" action="/login" method="post" name="confirm">
-          <input type="text" path="id" placeholder="User ID" />
+
+        <form th:object="${user}" cssClass="login-form" action="/login" method="post" name="confirm">
+          <input th:field="*{id}" type="text"  placeholder="User ID" />
          
-          <input type="password" path="password" placeholder="Password" />
+          <input th:field="*{password}" type="password" placeholder="Password" />
 
           <button type="submit">login</button>
           <p class="message">Not registered? <!-- <a href="">Create an account</a></p> -->

@@ -45,26 +45,25 @@
       </div>
       <div class="main_contents">
     <div id="sub_content">
-    <c:if test="${msg != null }">
-    		<h5 class="h5 text-success">${msg}</h5>
-    </c:if>
+
     
-    <c:if test="${ param.msg != null }">
-    		<h5 class="h5 text-success">${param.msg}</h5>
-    </c:if>
-    	
-      <form:form action="/students" method="get" class="row g-3 mt-3 ms-2" modelAttribute="student" >
+    <h5 th:text="${msg}" th:if="${msg != null}" class="h5 text-success">${msg}</h5>
+
+  
+    <h5 th:text="${param.msg}" th:if="${ param.msg != null }" class="h5 text-success"></h5>
+
+      <form:form action="/students" method="get" class="row g-3 mt-3 ms-2" th:object="${student}">
         <div class="col-auto">
           <label for="staticEmail2" class="visually-hidden">studentID</label>
-          <form:input type="text"  cssClass="form-control" id="staticEmail2" path="id" placeholder="Student ID" />
+          <input th:field="*{id}" type="text"  class="form-control" id="staticEmail2" placeholder="Student ID" />
         </div>
         <div class="col-auto">
           <label for="inputPassword2" class="visually-hidden">studentName</label>
-          <form:input type="text" cssClass="form-control" id="inputPassword2" path="name" placeholder="Student Name" />
+          <input th:field="*{name}" type="text" class="form-control" id="inputPassword2"  placeholder="Student Name" />
         </div>
         <div class="col-auto">
             <label for="inputPassword2" class="visually-hidden">Course</label>
-            <form:input type="text" cssClass="form-control" id="inputPassword2" path="course" placeholder="Course" />
+            <input th:field="*{course}" type="text" class="form-control" id="inputPassword2" placeholder="Course" />
           </div>
         <div class="col-auto">
           <button type="submit" class="btn btn-success mb-3">Search</button>
@@ -88,27 +87,20 @@
           </tr>
         </thead>
         <tbody>
-          <c:if test="${students == null || students.size() == 0 }">
-          	<tr>
+
+          	<tr th:if="${ students == null or students.size() == 0}">
           		<td class="text-center" colspan="5">There is no student to show!</td>
           	</tr>
-          </c:if>
           
-          <c:if test="${students != null && students.size() > 0 }">
-          	<% int idx = 1; %>
-          	<c:forEach var="student" items="${students}">
-          		<tr>
-		            <th scope="row"><%= idx %></th>
-		            <td>${student.id}</td>	
-		            <td>${student.name}</td>
-		            <td><c:forEach items="${student.attendCourses}" var="course"><span class="btn btn-sm btn-success mx-1"> ${course.courseName} </span></c:forEach></td>
+          		<tr th:if="${ students != null and students.size() > 0 }" th:each="student,itr : ${students}">
+		            <th th:text="${itr.index+1}"></th>
+		            <td th:text="${student.id}"></td>	
+		            <td th:text="${student.name}"></td>
+		            <td><span th:each=" course : ${student.attendCourses}" th:text="${course.name}" class="btn btn-sm btn-success mx-1"></span></td>
 		            <td>
-		              <a href="/students/${student.id}"><button  class="btn btn-secondary mb-2">See More</button></a> 
+		              <a th:href="@{/students/{id}(id=${student.id})}"><button  class="btn btn-secondary mb-2">See More</button></a> 
             	</td>
-          		</tr>
-          		<% idx++; %>
-          	</c:forEach>
-          </c:if>
+            </tr>
    
         </tbody>
       </table>

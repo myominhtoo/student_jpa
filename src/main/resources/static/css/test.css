@@ -223,6 +223,10 @@ margin-bottom: 26px;
     float: right;
     padding-right: 8px;
   }
+
+  .error{
+    color:red;
+  }
   
   /* Some media queries for responsiveness */
   @media screen and (max-height: 450px) {

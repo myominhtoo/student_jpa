@@ -177,6 +177,8 @@ public class UserController {
 	{
 		
 		User savedUser = userService.findById( id );
+
+		System.out.println(savedUser);
 		
 		if( savedUser == null ) return "USR003?msg=Something went wrong!";
 		
@@ -219,12 +221,12 @@ public class UserController {
 			return "USR002";
 		}
 		
-		User authUser = (User) req.getSession().getAttribute("authUser");
+		// User authUser = (User) req.getSession().getAttribute("authUser");
 		
-		if( user.getId().equals(authUser.getId()))
-		{
-			req.getSession().setAttribute( "authUser", user );
-		}
+		// if( user.getId().equals(authUser.getId()))
+		// {
+		// 	req.getSession().setAttribute( "authUser", user );
+		// }
 		
 		return "redirect:/users?msg=Successfully Updated!";
 			

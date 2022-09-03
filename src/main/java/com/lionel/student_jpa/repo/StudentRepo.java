@@ -9,7 +9,7 @@ import com.lionel.student_jpa.model.Student;
 @Repository
 public interface StudentRepo extends JpaRepository<Student,String>{
     
-    @Query("SELECT MAX(id) max FROM students")
+    @Query( value = "SELECT MAX(id) FROM students" , nativeQuery =  true)
     String getMaxId();
 
 }

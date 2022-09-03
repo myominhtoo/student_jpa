@@ -11,10 +11,10 @@ import com.lionel.student_jpa.model.User;
 @Repository
 public interface UserRepo extends JpaRepository<User,String> {
     
-    @Query("SELECT * FROM users u WHERE u.email = ?1 ")
+    @Query( value = "SELECT * FROM users u WHERE u.email = ?1 " , nativeQuery = true)
     Optional<User> findByEmail( String email );
 
-    @Query("SELECT MAX(id) max FROM users ")
+    @Query( value = "SELECT MAX(id) FROM users " , nativeQuery = true )
     String getMaxId();
 
 }

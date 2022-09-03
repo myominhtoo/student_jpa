@@ -1,8 +1,8 @@
 package com.lionel.student_jpa.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,12 +15,14 @@ import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table( name = "students" )
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Student 
 {
     @Id
@@ -29,6 +31,9 @@ public class Student
 
     @NotEmpty( message = "Name must not be empty!" )
     private String name;
+
+    @NotEmpty( message = "Phone must not be empty!")
+    private String phone;
 
     @NotEmpty( message = "Gender must not be empty!")
     private String gender;
@@ -48,5 +53,5 @@ public class Student
     List<Course> attendCourses;
 
     @Transient
-    ArrayList<Course> courses;
+    private String course;
 }

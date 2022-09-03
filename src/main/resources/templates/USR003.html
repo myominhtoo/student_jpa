@@ -46,27 +46,20 @@
       <div class="main_contents">
     <div id="sub_content">
     	
-    	<c:if test="${msg != null }">
-    		<h5 class="h5 text-success">${msg}</h5>
-    	</c:if>
+    	<h5 th:if="${ msg != null }" th:text="${msg}" class="h5 text-success"></h5>
     	
-    	<c:if test="${error != null }">
-    		<h5 class="h5 text-danger">${error}</h5>
-    	</c:if>
+    	<h5 th:if="${ error != null }" th:text="${error}" class="h5 text-danger">${error}</h5>
     	
-    	<c:if test="${ param.msg != null }">
-    		<h5 class="h5 text-success">${param.msg}</h5>
-    	</c:if>
-    	
+    	<h5 th:if="${param.msg != null}" th:text="${param.msg}" class="h5 text-success">${param.msg}</h5>
     
-        <form:form action="/users" method="GET" modelAttribute="user" class="row g-3 mt-3 ms-2">
+        <form action="/users" method="GET" th:object="${user}" class="row g-3 mt-3 ms-2">
             <div class="col-auto">
                 <label for="staticEmail2" class="visually-hidden">User Id</label>
-                <form:input type="text" cssClass="form-control" path="id" id="staticEmail2" placeholder="User ID" />
+                <input type="text" class="form-control" th:field="*{id}" id="staticEmail2" placeholder="User ID" />
             </div>
             <div class="col-auto">
                 <label for="inputPassword2" class="visually-hidden">User Name</label>
-                <form:input type="text" cssClass="form-control" path="name" id="inputPassword2" placeholder="User Name" />
+                <input type="text" class="form-control" th:field="*{name}" id="inputPassword2" placeholder="User Name" />
             </div>
     
             <div class="col-auto">
@@ -81,7 +74,7 @@
             <div class="col-auto">
                 <button type="reset" class="btn btn-danger mb-3">Reset</button>
             </div>
-        </form:form>
+        </form>
     
         <table class="table table-striped" id="stduentTable">
             <thead>
@@ -94,37 +87,24 @@
                 </tr>
             </thead>
             <tbody>
-               <c:if test="${users == null || users.size() == 0}">
-               		<tr class="text-center">
-               			<td colspan="6">There is no user to show!</td>
-               		</tr>
-               </c:if>
-               
-               <c:if test="${users != null && users.size() > 0 }">
-               	 	<c:forEach var="user" items="${users}">
-               			<tr>
-               				<td>${user.id}</td>
-        					<td class="text-capitalize">${user.name}</td>
+               	<tr th:if="${ users == null or users.size() == 0}" class="text-center">
+               		<td colspan="6">There is no user to show!</td>
+               	</tr>
+
+               			<tr th:if="${ users != null and users.size() > 0 }" th:each=" user : ${users}">
+               				<td th:text="${user.id}"></td>
+        					<td th:text="${user.name}" class="text-capitalize"></td>
         					<td>
-        						<a href="/users/${user.id}/update" class="btn btn-success  " >
+        						<a th:href="@{/users/{id}/update(id=${user.id})}" class="btn btn-success  " >
                        				 Update
                     			</a>
         					</td>
-        					<c:if test="${user.id.equals(authUser.id)}">
-	        					<c:set var="isDisabled" value="disabled"/>
-	        				</c:if>
-	        				<c:if test="${!user.id.equals(authUser.id)}">
-	        					<c:set var="isDisabled" value=""/>
-	        				</c:if>
         					<td>
-	        					<a href="/users/${user.id}/delete" onClick="return confirm('Are you sure to delete?');" class="btn btn-secondary mb-3 ${isDisabled}">
+	        					<a th:href="@{/users/{id}/delete(id=${user.id})}" onClick="return confirm('Are you sure to delete?');" class="btn btn-secondary mb-3">
         							Delete
         						</a>
         					</td>
                			</tr>
-               		</c:forEach>
-               </c:if>
-              
             </tbody>
         </table>
     

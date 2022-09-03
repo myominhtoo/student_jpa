@@ -122,6 +122,8 @@ public class StudentController {
 	public String postStudentCreate(@ModelAttribute("student") @Validated Student student , BindingResult bind , ModelMap model  )
 	{
 
+		System.out.println(student);
+
 		if( bind.hasErrors() )
 		{
 			model.addAttribute( "courses", courseService.findAll() ); 

@@ -42,60 +42,56 @@
       </div>
       <div class="main_contents">
     <div id="sub_content">
-        <form:form action="/user/new" method="post" modelAttribute="user" >
+        <form action="/user/new" method="post" th:object="${user}" >
 
             <h2 class="col-md-6 offset-md-2 mb-5 mt-4">User Registration</h2>
           	
-          	<c:if test="${error != null  }">
-          		<h5 class="h5 text-danger text-center fw-bold ">${error}</h5>
-          	</c:if>
+          	<h5 th:text="${error}" th:if="${ error != null }" class="h5 text-danger text-center fw-bold ">${error}</h5>
           	
-          	<c:if test="${msg != null  }">
-          		<h5 class="h5 text-success text-center fw-bold">${msg}</h5>
-          	</c:if>
+          	<h5 th:text="${msg}" th:if="${ msg != null }" class="h5 text-success text-center fw-bold">${msg}</h5>
             
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="email" class="col-md-2 col-form-label">Name</label>
                 <div class="col-md-4">
-                    <form:input path="name" type="text" cssClass="form-control" />
-                    <form:errors path="name" cssClass="error"/>
+                    <input th:field="*{name}" type="text" class="form-control" placeholder="Enter name" />
+                    <span th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="h6 error"></span>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="email" class="col-md-2 col-form-label">Email</label>
                 <div class="col-md-4">
-                    <form:input type="email" path="email" cssClass="form-control"  id="email" />
-                    <form:errors path="email" cssClass="error"/>
+                    <input type="email" th:field="*{email}" class="form-control"  id="email" placeholder="Enter email" />
+                    <span th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}" class="h6 error"></span>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="Passowrd" class="col-md-2 col-form-label">Password</label>
                 <div class="col-md-4">
-                    <form:input type="password" path="password" cssClass="form-control" id="name" />
-                    <form:errors path="password" cssClass="error"/>
+                    <input type="password" th:field="*{password}" class="form-control" id="name"  placeholder="Enter password"/>
+                    <span th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}" class="h6 error"></span>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="confirmPassword" class="col-md-2 col-form-label">Confirm Passowrd</label>
                 <div class="col-md-4">
-                    <form:input type="password" path="confirmPassword" cssClass="form-control" id="confirmPassword" />
-                    <form:errors path="confirmPassword" cssClass="error"/>
+                    <input type="password" th:field="*{confirmPassword}" class="form-control" id="name" placeholder="Enter confirm password"/>
+                    <span th:if="${#fields.hasErrors('confirmPassword')}" th:text="${#fields.errors('confirmPassword')}" class="h6 error"></span>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
                 <label for="userRole" class="col-md-2 col-form-label">User Role</label>
                 <div class="col-md-4">
-                    <form:select path="role" cssClass="form-select" aria-label="Education" id="userRole">
-                    	<form:option selected="selected" disabled="disabled" value="" >Choose Role</form:option>
-                        <form:option value="0" >Admin</form:option>
-                        <form:option value="1"  >User</form:option>  
-                    </form:select>
-                    <form:errors path="role" cssClass="error"/>
+                    <select th:field="*{role}" class="form-select" aria-label="Education" id="userRole">
+                    	<option value="" selected disabled>Choose Role</option>
+                        <option value="0">User</option>
+                        <option value="1">Admin</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('role')}" th:text="${#fields.errors('role')}" class="h6 error"></span>
                 </div>
             </div>
            <!--  <div class="row mb-4">
@@ -135,7 +131,7 @@
 	                    <button type="submit" class="btn btn-secondary">Add</button>
 	                </div>
 	            </div>
-            </form:form>
+            </form>
     </div>
 </div>
 </div>

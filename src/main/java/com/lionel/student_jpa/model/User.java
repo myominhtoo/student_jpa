@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table( name = "users" )
@@ -35,5 +36,6 @@ public class User
     private String role;  
     
     @Transient
+    // @NotEmpty( message = "Confirm-password must not be empty!" )
     private String confirmPassword;
 }

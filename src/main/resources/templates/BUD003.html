@@ -19,17 +19,9 @@
 </head>
 
 <body>
-
-	<!-- <%
-	 	response.setHeader( "Cache-Control", "no-cache , no-store , must-revalidate");
-		if(session.getAttribute("authUser") == null )
-		{
-			response.sendRedirect("/student-mybatis/login?error=Please login to continue!");
-		}
-	%> -->
     
     <!--  header -->
-   <th:block th:insert="/layouts/header :: header"></th:block> 
+   <th:block th:insert="./layouts/header :: header"></th:block> 
    
     
     <!-- <div id="testsidebar">Hello World </div> -->
@@ -47,24 +39,20 @@
       </div>
       <div class="main_contents">
     <div id="sub_content">
-    	
-    	<c:if test="${error != null  }">
-          	<h5 class="h5 text-danger text-center fw-bold ">${error}</h5>
-         </c:if>
-          	
-          <c:if test="${msg != null  }">
-          	<h5 class="h5 text-success text-center fw-bold">${msg}</h5>
-          </c:if>
+    
+        <h5 th:text="${error}" th:unless="${ error == null }" class="h5 text-danger text-center fw-bold"></h5>
+
+        <h5 th:text="${msg}" th:unless="${ msg == null }" class="h5 text-success text-center fw-bold"></h5>
           
-    <form action="/course/new" method="post" modelAttribute="course" >
+    <form action="/course/new" method="post" th:object="${course}" >
 
         <h2 class="col-md-6 offset-md-2 mb-5 mt-4">Course Registration</h2>
         <div class="row mb-4">
             <div class="col-md-2"></div>
             <label for="id" class="col-md-2 col-form-label"> ID</label>
             <div class="col-md-4">
-                <input type="text" path="id" cssClass="form-control" placeholder="Course Id" />
-                <!-- <form:errors path="id" cssClass="error" /> -->
+                <input th:field="*{id}" type="text" path="id" class="form-control" placeholder="Course Id" />
+                <span th:text="${#fields.errors('id')}" th:if="${#fields.hasErrors('id')}" class="h6 error"></span>
             </div>
         </div>
 
@@ -72,40 +60,11 @@
             <div class="col-md-2"></div>
             <label for="name" class="col-md-2 col-form-label">Course Name</label>
             <div class="col-md-4">
-                <input type="text" path="name" cssClass="form-control" placeholder="Course Name" />
-                <!-- <form:errors path="name" cssClass="error" /> -->
+                <input th:field="*{name}" type="text" path="name" class="form-control" placeholder="Course Name" />
+               <span class="h6 error" th:text="${#fields.errors('name')}" th:if="${#fields.hasErrors('name')}"></span>
             </div>
         </div>
       
-       
-        <!-- - <div class="row mb-4">
-            <div class="col-md-4"></div>
-
-            <div class="col-md-6">
-               
-
-                <button type="submit" class="btn btn-secondary col-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Course Registration</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5 style="color: rgb(127, 209, 131);">Registered Succesfully !</h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success col-md-2" data-bs-dismiss="modal">Ok</button>
-                               
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-        </div> -->
          <div class="row mb-4">
             <div class="col-md-4"></div>
             <div class="col-md-4">

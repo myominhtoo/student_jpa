@@ -46,58 +46,58 @@
       <div class="main_contents">
     <div id="sub_content">
     
-    		<c:if test="${error != null  }">
-          		<h5 class="h5 text-danger text-center fw-bold ">${error}</h5>
-          	</c:if>
+        <h5 th:if="${ error != null }" th:text="${error}" class="h5 text-danger text-center fw-bold "></h5>
           	
-        <form:form action="/users/${user.id}/update" method="post" modelAttribute="user" >
-			<form:input type="hidden" path="id" />
+        <form th:action="@{/users/{id}/update(id=${user.id})}" method="post" th:object="${user}" >
+
+			<input th:field="*{id}" type="hidden" />
+
 	        <h2 class="col-md-6 offset-md-2 mb-5 mt-4">User Update</h2>
+
 	        <div class="row mb-4">
-	            <div class="col-md-2"></div>
-	            <label for="email" class="col-md-2 col-form-label">Name</label>
-	            <div class="col-md-4">
-	                <form:input type="text" cssClass="form-control" path="name" />
-	                <form:errors path="name" cssClass="error"/>
-	            </div>
-	        </div>
-	        <div class="row mb-4">
-	            <div class="col-md-2"></div>
-	            <label for="email" class="col-md-2 col-form-label">Email</label>
-	            <div class="col-md-4">
-	                <form:input type="email" cssClass="form-control" path="email" />
-	                <form:errors path="email" cssClass="error"/>
-	            </div>
-	        </div>
-	        <div class="row mb-4">
-	            <div class="col-md-2"></div>
-	            <label for="Passowrd" class="col-md-2 col-form-label">Password</label>
-	            <div class="col-md-4">
-	                <form:input path="password" type="password" cssClass="form-control" />
-	                <form:errors path="password" cssClass="error"/>
-	            </div>
-	        </div>
-	        <div class="row mb-4">
-	            <div class="col-md-2"></div>
-	            <label for="confirmPassword" class="col-md-2 col-form-label">Confirm Password</label>
-	            <div class="col-md-4">
-	                <form:input path="confirmPassword" type="password" cssClass="form-control" />
-	                <form:errors path="confirmPassword" cssClass="error"/>
-	            </div>
-	        </div>
-	        <div class="row mb-4">
-	            <div class="col-md-2"></div>
-	            <label for="userRole" class="col-md-2 col-form-label">User Role</label>
-	            
-	            <div class="col-md-4">
-	                <form:select path="role" cssClass="form-select" aria-label="Education" id="userRole">
-	                    <form:option selected="selected" disabled="disabled" value="" >Choose Role</form:option>
-	                    <form:option value="0" >Admin</form:option>
-	                    <form:option value="1"  >User</form:option>  
-	                </form:select>
-	                <form:errors path="role" cssClass="error"/>
-	            </div>
-	        </div>
+                <div class="col-md-2"></div>
+                <label for="email" class="col-md-2 col-form-label">Name</label>
+                <div class="col-md-4">
+                    <input th:field="*{name}" type="text" class="form-control" />
+                    <span th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="h6 error"></span>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-2"></div>
+                <label for="email" class="col-md-2 col-form-label">Email</label>
+                <div class="col-md-4">
+                    <input type="email" th:field="*{email}" class="form-control"  id="email" />
+                    <span th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}" class="h6 error"></span>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-2"></div>
+                <label for="Password" class="col-md-2 col-form-label">Password</label>
+                <div class="col-md-4">
+                    <input type="password" th:field="*{password}" class="form-control" id="password" />
+                    <span th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}" class="h6 error"></span>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-2"></div>
+                <label for="confirmPassword" class="col-md-2 col-form-label">Confirm Passowrd</label>
+                <div class="col-md-4">
+                    <input type="password" th:field="*{confirmPassword}" class="form-control" id="name" />
+                    <span th:if="${#fields.hasErrors('confirmPassword')}" th:text="${#fields.errors('confirmPassword')}" class="h6 error"></span>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-2"></div>
+                <label for="userRole" class="col-md-2 col-form-label">User Role</label>
+                <div class="col-md-4">
+                    <select th:field="*{role}" class="form-select" aria-label="Education" id="userRole">
+                    	<option value="" selected disabled>Choose Role</option>
+                        <option value="0">User</option>
+                        <option value="1">Admin</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('role')}" th:text="${#fields.errors('role')}" class="h6 error"></span>
+                </div>
+            </div>
 	        
 	        <div class="row mb-4">
 		         <div class="col-md-4"></div>
@@ -107,7 +107,7 @@
 		            </div>
 		      </div>
 	        
-        </form:form>
+        </form>
     </div>
 </div>
 </div>
