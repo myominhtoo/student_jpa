@@ -52,7 +52,7 @@
   
     <h5 th:text="${param.msg}" th:if="${ param.msg != null }" class="h5 text-success"></h5>
 
-      <form:form action="/students" method="get" class="row g-3 mt-3 ms-2" th:object="${student}">
+      <form action="/students" method="get" class="row g-3 mt-3 ms-2" th:object="${student}">
         <div class="col-auto">
           <label for="staticEmail2" class="visually-hidden">studentID</label>
           <input th:field="*{id}" type="text"  class="form-control" id="staticEmail2" placeholder="Student ID" />
@@ -74,7 +74,7 @@
         <div class="col-auto">
           <button type="reset" class="btn btn-danger mb-3">Reset</button>
         </div>
-      </form:form>
+      </form>
 <div>
       <table class="table table-striped" id="stduentTable">
         <thead>

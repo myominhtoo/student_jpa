@@ -67,4 +67,31 @@ public class StudentService {
         return maxId == null ? "STU000" : maxId;
     }
 
+    public List<Student> findWithId( String id ){
+        return studentRepo.findWithId(id);
+    }
+
+    public List<Student> findWithName( String name ){
+        return studentRepo.findWithName( name );
+    }
+
+    public List<Student> findwithIdAndName( String id , String name ){
+        return studentRepo.findWithIdAndName( id , name );
+    }
+
+    public List<Student> findWithCourse( String course ){
+        return studentRepo.findWithCourse( course );
+    }
+
+    public List<Student> findWithNameAndCourse( String name , String course ){
+        return studentRepo.findWithNameAndCourse(name, course);
+    }
+
+    public List<Student> findWithIdAndCourse( String id , String course ){
+        return studentRepo.findWithIdAndCourse( id , course);    
+    }
+
+    public List<Student> findWithIdAndNameAndCourse( String id , String name , String course ){
+        return studentRepo.findWithIdAndNameAndCourse(id, name, course);
+    }
 }

@@ -1,7 +1,5 @@
 package com.lionel.student_jpa.controller.user;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 

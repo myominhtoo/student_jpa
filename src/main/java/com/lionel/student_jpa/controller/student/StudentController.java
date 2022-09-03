@@ -39,69 +39,57 @@ public class StudentController {
 		
 		List<Student> foundStudents = new ArrayList<>();
 		
-		// if( id == null && name == null && course == null )
-		// {
-		// 	foundStudents = studentDAO.find();			
-		// }
-		// else
-		// {
-		// 	Student student = new Student();
+		if( id == null && name == null && course == null )
+		{
+			foundStudents = studentService.findAll();	
+		}
+		else
+		{
+			// Student student = new Student();
 			
-		// 	if( !id.equals("") && name.equals("") && course.equals(""))
-		// 	{
-		// 		student.setId("%"+id+"%");
-		// 		foundStudents = studentDAO.findBy( student );
-		// 	}
+			if( !id.equals("") && name.equals("") && course.equals(""))
+			{
+				foundStudents = studentService.findWithId("%"+id+"%");
+			}
 			
-		// 	else if( id.equals("") && !name.equals("") && course.equals(""))
-		// 	{
-		// 		student.setName("%"+name+"%");
-		// 		foundStudents = studentDAO.findBy( student );
-		// 	}
+			else if( id.equals("") && !name.equals("") && course.equals(""))
+			{
+				foundStudents = studentService.findWithName("%"+name+"%");
+			}
 			
-		// 	else if( id.equals("") && name.equals("") && !course.equals(""))
-		// 	{
-		// 		student.setCourse("%"+course+"%");
-		// 		foundStudents = studentDAO.findBy( student );
-		// 	}
+			else if( id.equals("") && name.equals("") && !course.equals(""))
+			{
+				foundStudents = studentService.findWithCourse("%"+course+"%");
+			}
 			
-		// 	else if( !id.equals("") && !name.equals("") && course.equals(""))
-		// 	{
-		// 		student.setId( "%"+id+"%");
-		// 		student.setName("%"+name+"%");
-		// 		foundStudents = studentDAO.findBy( student );
-		// 	}
+			else if( !id.equals("") && !name.equals("") && course.equals(""))
+			{
+				foundStudents = studentService.findwithIdAndName( "%"+id+"%", "%"+name+"%" );
+			}
 			
-		// 	else if( !id.equals("") && name.equals("") && !course.equals(""))
-		// 	{
-		// 		student.setId("%"+id+"%");
-		// 		student.setCourse( "%"+course+"%" );
-		// 		foundStudents = studentDAO.findBy( student );
-		// 	}
+			else if( !id.equals("") && name.equals("") && !course.equals(""))
+			{
+				foundStudents = studentService.findWithIdAndCourse( "%"+id+"%", "%"+course+"%");
+			}
 			
-		// 	else if( id.equals("") && !name.equals("") && !course.equals(""))
-		// 	{
-		// 		student.setName( "%"+name+"%");
-		// 		student.setCourse( "%"+course+"%" );
-		// 		foundStudents = studentDAO.findBy( student );
-		// 	}
+			else if( id.equals("") && !name.equals("") && !course.equals(""))
+			{
+				foundStudents = studentService.findWithNameAndCourse( "%"+name+"%", "%"+course+"%");
+			}
 			
-		// 	else if( !id.equals("") && !name.equals("") && !course.equals(""))
-		// 	{
-		// 		student.setId( "%"+id+"%");
-		// 		student.setName( "%"+name+"%" );
-		// 		student.setCourse( "%"+course+"%" );
-		// 		foundStudents = studentDAO.findBy( student );
-		// 	}
+			else if( !id.equals("") && !name.equals("") && !course.equals(""))
+			{
+				foundStudents = studentService.findWithIdAndNameAndCourse( "%"+id+"%", "%"+name+"%", "%"+course+"%");
+			}
 			
-		// 	else
-		// 	{
-		// 		foundStudents = studentDAO.find();
-		// 	}
-		// }
+			else
+			{
+				foundStudents = studentService.findAll();
+			}
+		}
 		
 		model.addAttribute( "student", new Student());
-		model.addAttribute( "students", studentService.findAll() );
+		model.addAttribute( "students", foundStudents );
 		
 		return "STU003";
 		
@@ -121,8 +109,6 @@ public class StudentController {
 	@PostMapping( value = "/student/new" )
 	public String postStudentCreate(@ModelAttribute("student") @Validated Student student , BindingResult bind , ModelMap model  )
 	{
-
-		System.out.println(student);
 
 		if( bind.hasErrors() )
 		{
