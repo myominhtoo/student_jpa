@@ -62,4 +62,9 @@ public class StudentService {
         return isUpdated;    
     }
 
+    public String getMaxId(){
+        String maxId = studentRepo.getMaxId();
+        return maxId == null ? "STU000" : maxId;
+    }
+
 }

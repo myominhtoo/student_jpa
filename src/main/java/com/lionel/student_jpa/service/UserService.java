@@ -72,7 +72,8 @@ public class UserService {
     }
 
     public String getMaxid(){
-        return userRepo.getMaxId();
+        String maxId = userRepo.getMaxId();
+        return maxId == null ? "USR000" : maxId;
     }
 
     public User findByEmail( String email ){
