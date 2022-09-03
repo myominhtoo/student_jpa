@@ -44,13 +44,12 @@
           <a href="/users">Users Management</a>
       </div>
       <div class="main_contents">
-    <div id="sub_content">
+    <div id="sub_content">  
     
-    		<c:if test="${error != null  }">
-          		<h5 class="h5 text-danger text-center fw-bold ">${error}</h5>
-          	</c:if>
+        <h5 th:if="${error != null}" th:text="${error}" class="h5 text-danger text-center fw-bold "></h5>
+        
           	
-        <form th:action="/students/{id}/update(id=${student.id})" method="post" th:object="${student}">
+        <form th:action="@{/students/{id}/update(id=${student.id})}" method="post" th:object="${student}">
         
 
             <h2 class="col-md-6 offset-md-2 mb-5 mt-4">Student Details</h2>
@@ -58,7 +57,7 @@
                 <div class="col-md-2"></div>
                 <label for="studentID" class="col-md-2 col-form-label">Student ID</label>
                 <div class="col-md-4">                   
-                    <input type="text" class="form-control" th:fied="*{id}"  readonly="true" />                  
+                    <input type="text" class="form-control" th:field="*{id}"  readonly />                  
                 </div>
             </div>
             <div class="row mb-4">
@@ -129,7 +128,7 @@
     
                 <div class="col-md-4">
                     	<div  th:each="course : ${courses}" class="form-check-inline col-md-2">
-		                    <input type="checkbox" th:field="*{attendCourses}" class="form-check-input" id="gridRadios1" value="${course.id}" />
+		                    <input type="checkbox" th:field="*{attendCourses}" class="form-check-input" id="gridRadios1" th:value="${course.id}" />
 		                    <label th:text="${course.name}" class="form-check-label" for="gridRadios1">
 		                    </label>
                    		</div>

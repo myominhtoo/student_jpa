@@ -83,33 +83,26 @@ public class UserController {
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
 		
-		User user = new User();
 		
-		// if( id != null && !id.equals("") && name.equals(""))
-		// {
-		// 	user.setId( "%"+id+"%" );
-		// 	model.addAttribute( "users", userDAO.findBy( user ) );
-		// }
+		if( id != null && !id.equals("") && name.equals(""))
+		{
+			model.addAttribute( "users", userService.findWithId( "%"+id+"%") );
+		}
 		
-		// else if( name != null && !name.equals("") && id.equals("") )
-		// {
-		// 	user.setName( "%"+name+"%" );
-		// 	model.addAttribute( "users", userDAO.findBy( user ));
-		// }
+		else if( name != null && !name.equals("") && id.equals("") )
+		{
+			model.addAttribute( "users", userService.findWithName("%"+name+"%"));
+		}
 		
-		// else if( name != null && id != null && !id.equals("") && !name.equals(""))
-		// {
-		// 	user.setId( "%"+id+"%" );
-		// 	user.setName( "%"+name+"%" );
-		// 	model.addAttribute("users" , userDAO.findBy( user ));
-		// }
+		else if( name != null && id != null && !id.equals("") && !name.equals(""))
+		{
+			model.addAttribute("users" , userService.findWithIdAndName( "%"+id+"%" , "%"+name+"%" ));
+		}
 		
-		// else
-		// {
-		// 	model.addAttribute( "users", userDAO.find() );
-		// }
-
-		model.addAttribute( "users" , userService.findAll() );
+		else
+		{
+			model.addAttribute( "users", userService.findAll() );
+		}
 	
 		model.addAttribute( "user" ,  new User() );
 		

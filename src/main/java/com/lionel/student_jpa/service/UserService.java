@@ -80,4 +80,16 @@ public class UserService {
         return userRepo.findByEmail( email ).get();
     }
 
+    public List<User> findWithId( String id ){
+        return userRepo.findWithId(id);
+    }
+
+    public List<User> findWithName( String name ){
+        return userRepo.findWithName( name );
+    }
+
+    public List<User> findWithIdAndName( String id , String name ){
+        return userRepo.findWithIdAndName( id , name);
+    }
+
 }

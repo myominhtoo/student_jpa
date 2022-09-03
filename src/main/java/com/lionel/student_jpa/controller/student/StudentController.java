@@ -151,7 +151,8 @@ public class StudentController {
 		{
 			return "redirect:/users?msg=Something went wrong!";
 		}
-		
+		System.out.println(student);
+		model.addAttribute( "student", student);
 		model.addAttribute( "courses", courseService.findAll() ); 
 		
 		return "STU002";
@@ -162,11 +163,12 @@ public class StudentController {
 	{
 		Student student = studentService.findById( id );
 		
-		if( student != null )
+		if( student == null )
 		{
 			return "redirect:/users?msg=Something went wrong!";			
 		}
 
+		model.addAttribute( "student" , student );
 		model.addAttribute( "courses", courseService.findAll() ); 
 		
 		return "STU002-01";

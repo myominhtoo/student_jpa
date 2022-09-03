@@ -54,7 +54,7 @@
                 <div class="col-md-2"></div>
                 <label for="studentID" class="col-md-2 col-form-label">Student ID</label>
                 <div class="col-md-4">                   
-                    <input type="text" class="form-control" th:fied="*{id}"  readonly="true" />                  
+                    <input type="text" class="form-control" th:field="*{id}"  readonly />                  
                 </div>
             </div>
             <div class="row mb-4">
@@ -125,7 +125,7 @@
     
                 <div class="col-md-4">
                     	<div  th:each="course : ${courses}" class="form-check-inline col-md-2">
-		                    <input type="checkbox" th:field="*{attendCourses}" class="form-check-input" id="gridRadios1" value="${course.id}" />
+		                    <input type="checkbox" th:field="*{attendCourses}" class="form-check-input" id="gridRadios1" th:value="${course.id}" />
 		                    <label th:text="${course.name}" class="form-check-label" for="gridRadios1">
 		                    </label>
                    		</div>
@@ -146,13 +146,13 @@
                 <div class="col-md-4"></div>
     
                 <div class="col-md-4">
-                    <a th:href="/students/{id}/update(id=${student.id})" class="btn btn-success">
+                    <a th:href="@{/students/{id}/update(id=${student.id})}" class="btn btn-success">
                           
                             <span>Update</span>
                     </a>
     
                     <!-- Button trigger modal -->
-                    <a th:href="/students/{id}/delete(id=${student.id})" class="btn btn-danger" onClick="return confirm('Are you sure to delete?');" >
+                    <a th:href="@{/students/{id}/delete(id=${student.id})}" class="btn btn-danger" onClick="return confirm('Are you sure to delete?');" >
                        
                        <span>Delete</span> 
                     </a>
