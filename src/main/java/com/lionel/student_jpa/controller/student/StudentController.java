@@ -157,7 +157,7 @@ public class StudentController {
 		{
 			return "redirect:/users?msg=Something went wrong!";
 		}
-		System.out.println(student);
+
 		model.addAttribute( "student", student);
 		model.addAttribute( "courses", courseService.findAll() ); 
 		

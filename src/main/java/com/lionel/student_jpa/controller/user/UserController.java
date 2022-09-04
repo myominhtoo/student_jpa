@@ -242,12 +242,12 @@ public class UserController {
 			return "USR002";
 		}
 		
-		// User authUser = (User) req.getSession().getAttribute("authUser");
+		User authUser = (User) req.getSession().getAttribute("authUser");
 		
-		// if( user.getId().equals(authUser.getId()))
-		// {
-		// 	req.getSession().setAttribute( "authUser", user );
-		// }
+		if( user.getId().equals(authUser.getId()))
+		{
+			req.getSession().setAttribute( "authUser", user );
+		}
 		
 		return "redirect:/users?msg=Successfully Updated!";
 			
