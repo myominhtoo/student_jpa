@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lionel.student_jpa.constants.Const;
 import com.lionel.student_jpa.model.User;
 import com.lionel.student_jpa.service.UserService;
+import com.lionel.student_jpa.utils.Auth;
 import com.lionel.student_jpa.utils.Generator;
 
 @Controller
@@ -66,17 +68,23 @@ public class UserController {
 	public String getLogout( HttpServletRequest req , ModelMap model  )
 	{
 		HttpSession session = req.getSession(false);
-		
-		session.removeAttribute("authUser");
-		session.invalidate();
+	
+		if( req.getSession().getAttribute("authUser") != null ){
+			session.removeAttribute("authUser");
+			session.invalidate();
+		}
 		
 		return "redirect:/login?msg=Successfully Logout!";
 	}
 	
 	
 	@GetMapping( value = "/users" )
-	public String getUsersPage( ModelMap model , HttpServletRequest req )
+	public String getUsersPage( HttpSession session , ModelMap model , HttpServletRequest req )
 	{
+
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
 		
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
@@ -107,15 +115,25 @@ public class UserController {
 		return "USR003";
 	}
 	
-	@GetMapping( value = "/user/new" )
-	public ModelAndView getUserCreatePage()
+	@GetMapping( value = "/users/new" )
+	public String getUserCreatePage( HttpSession session , ModelMap model )
 	{
-		return new ModelAndView( "USR001" , "user" , new User() );
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
+		model.addAttribute("user", new User());
+
+		return "USR001";
 	}
 	
-	@PostMapping( value = "/user/new" )
-	public String postUserCreate(@ModelAttribute("user") @Validated User user , BindingResult bind , ModelMap model  )
+	@PostMapping( value = "/users/new" )
+	public String postUserCreate( HttpSession session ,  @ModelAttribute("user") @Validated User user , BindingResult bind , ModelMap model  )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		if( bind.hasErrors() )
 		{
 			model.addAttribute( "user" , user );
@@ -152,8 +170,12 @@ public class UserController {
 	}
 	
 	@GetMapping( value = "/users/{id}/delete" )
-	public String getDeleteUser( @PathVariable("id") String id , ModelMap model )
+	public String getDeleteUser( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		if( !userService.deleteOne( id ) )
 		{
 			model.addAttribute( "error" , "Something went wrong!" );
@@ -164,9 +186,13 @@ public class UserController {
 	}
 	
 	@GetMapping( value = "/users/{id}/update" )
-	public String getUserUpdatePage( @PathVariable("id") String id , ModelMap model )
+	public String getUserUpdatePage( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
 		
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		User savedUser = userService.findById( id );
 
 		System.out.println(savedUser);
@@ -180,8 +206,12 @@ public class UserController {
 	}
 	
 	@PostMapping( value = "/users/{id}/update" )
-	public String postUserUpdate(@PathVariable("id") String id , @ModelAttribute("user") @Validated User user , BindingResult bind , ModelMap model , HttpServletRequest req )
+	public String postUserUpdate( HttpSession session ,  @PathVariable("id") String id , @ModelAttribute("user") @Validated User user , BindingResult bind , ModelMap model , HttpServletRequest req )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		if( bind.hasErrors() )
 		{
 			model.addAttribute( "user", user);

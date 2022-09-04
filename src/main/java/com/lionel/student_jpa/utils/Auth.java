@@ -4,15 +4,15 @@ import javax.servlet.http.HttpSession;
 
 public class Auth {
     
-    public static String check( HttpSession session , String targetKey ){
+    public static boolean check( HttpSession session , String targetKey ){
 
-        String target = null;
+       boolean isAuth = true;
 
         if( session.getAttribute(targetKey) == null ){
-            target = "redirect:/";
+           isAuth = false;
         }
 
-        return target;
+        return isAuth;
         
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.lionel.student_jpa.constants.Const;
 import com.lionel.student_jpa.model.Student;
 import com.lionel.student_jpa.service.CourseService;
 import com.lionel.student_jpa.service.StudentService;
+import com.lionel.student_jpa.utils.Auth;
 import com.lionel.student_jpa.utils.Generator;
 
 @Controller
@@ -31,8 +33,12 @@ public class StudentController {
 	CourseService courseService;
     
     @GetMapping( value = "/students" )
-	public String getStudentsPage( HttpServletRequest req , ModelMap model   )
+	public String getStudentsPage( HttpSession session ,  HttpServletRequest req , ModelMap model   )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+		
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
 		String course = req.getParameter("course");
@@ -95,20 +101,29 @@ public class StudentController {
 		
 	}
 	
-	@GetMapping( value = "/student/new" )
-	public ModelAndView getStudentCreatePage( ModelMap model )
+	@GetMapping( value = "/students/new" )
+	public String getStudentCreatePage( HttpSession session ,  ModelMap model )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		model.addAttribute( "courses", courseService.findAll() ); 
 		
 		Student student = new Student();
 		student.setId( Generator.generateId( studentService.getMaxId() , "STU" ));
 		
-		return new ModelAndView( "STU001" , "student" , student );
+		model.addAttribute("student", student);
+
+		return "STU001";
 	}
 	
-	@PostMapping( value = "/student/new" )
-	public String postStudentCreate(@ModelAttribute("student") @Validated Student student , BindingResult bind , ModelMap model  )
+	@PostMapping( value = "/students/new" )
+	public String postStudentCreate( HttpSession session ,  @ModelAttribute("student") @Validated Student student , BindingResult bind , ModelMap model  )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
 
 		if( bind.hasErrors() )
 		{
@@ -129,8 +144,13 @@ public class StudentController {
 	
 	
 	@GetMapping( value = "/students/{id}" )
-	public String getStudentDetailPage( @PathVariable("id") String id , ModelMap model )
+	public String getStudentDetailPage( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
+
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		Student student = studentService.findById( id );
 		
 		if( student == null )
@@ -145,8 +165,12 @@ public class StudentController {
 	}
 	
 	@GetMapping( value = "/students/{id}/update" )
-	public String getStuentUpdatePage( @PathVariable("id") String id , ModelMap model )
+	public String getStuentUpdatePage( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		Student student = studentService.findById( id );
 		
 		if( student == null )
@@ -162,8 +186,12 @@ public class StudentController {
 	
 	
 	@PostMapping(  value = "/students/{id}/update" )
-	public String postStudentUpdatePage( @PathVariable("id") String id , @ModelAttribute("student") @Validated Student student , BindingResult bind  , ModelMap model )
+	public String postStudentUpdatePage( HttpSession session ,  @PathVariable("id") String id , @ModelAttribute("student") @Validated Student student , BindingResult bind  , ModelMap model )
 	{
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
+
 		if( bind.hasErrors() )
 		{
 			model.addAttribute( "courses", courseService.findAll() ); 
@@ -184,8 +212,12 @@ public class StudentController {
 	}
 	
 	@GetMapping( value = "/students/{id}/delete" )
-	public String getStudentDelete( @PathVariable("id") String id , ModelMap model )
+	public String getStudentDelete( HttpSession session ,  @PathVariable("id") String id , ModelMap model )
 	{
+
+		if( !Auth.check(session, "authUser") ){
+			return Const.REDIRECT;
+		}
 		
 		if( !studentService.deleteOne( id ) )
 		{

@@ -12,17 +12,17 @@
           <div class="login-header">
             <h1>Welcome!</h1>
             
-            	<p th:text="${error}" th:unless="${ error != null }" class="fw-bold h6 text-danger"></p>
+            	<p th:text="${error}" th:unless="${ error == null }" class="fw-bold h6 text-danger"></p>
             
-            	<p th:text="${msg}" th:unless="${ msg != null }" class="fw-bold h6 text-sucess"></p>
+            	<p th:text="${msg}" th:unless="${ msg == null }" class="fw-bold h6 text-sucess"></p>
           
-    			    <h5 th:text="${param.msg}" th:unless="${param.msg != null}" class="h5 text-success">${param.msg}</h5>
+    			    <h5 th:text="${param.msg}" th:unless="${param.msg == null}" class="h5 text-success"></h5>
   
-    			    <h5 class="h5 text-danger">${param.error}</h5>
+    			    <h5 th:text="${param.error}" th:if="${ param.error != null }" class="h5 text-danger"></h5>
          </div>
         </div>
 
-        <form th:object="${user}" cssClass="login-form" action="/login" method="post" name="confirm">
+        <form th:object="${user}" class="login-form" action="/login" method="post" name="confirm">
           <input th:field="*{id}" type="text"  placeholder="User ID" />
          
           <input th:field="*{password}" type="password" placeholder="Password" />
