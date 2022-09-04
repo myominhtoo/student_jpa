@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import com.lionel.student_jpa.service.CourseService;
 import com.lionel.student_jpa.service.StudentService;
 import com.lionel.student_jpa.utils.Auth;
 import com.lionel.student_jpa.utils.Generator;
+import com.lionel.student_jpa.utils.SetHeader;
 
 @Controller
 public class StudentController {
@@ -31,10 +33,15 @@ public class StudentController {
 
 	@Autowired
 	CourseService courseService;
+
+	@Autowired
+	HttpServletResponse res;
     
     @GetMapping( value = "/students" )
 	public String getStudentsPage( HttpSession session ,  HttpServletRequest req , ModelMap model   )
 	{
+		SetHeader.make( res );
+		
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
 		}
@@ -104,6 +111,7 @@ public class StudentController {
 	@GetMapping( value = "/students/new" )
 	public String getStudentCreatePage( HttpSession session ,  ModelMap model )
 	{
+		SetHeader.make( res );
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
 		}
@@ -146,7 +154,7 @@ public class StudentController {
 	@GetMapping( value = "/students/{id}" )
 	public String getStudentDetailPage( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
-
+		SetHeader.make( res );
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
 		}
@@ -167,6 +175,7 @@ public class StudentController {
 	@GetMapping( value = "/students/{id}/update" )
 	public String getStuentUpdatePage( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
+		SetHeader.make( res );
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
 		}
@@ -214,6 +223,7 @@ public class StudentController {
 	@GetMapping( value = "/students/{id}/delete" )
 	public String getStudentDelete( HttpSession session ,  @PathVariable("id") String id , ModelMap model )
 	{
+		SetHeader.make( res );
 
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;

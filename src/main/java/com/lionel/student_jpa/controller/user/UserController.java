@@ -1,6 +1,7 @@
 package com.lionel.student_jpa.controller.user;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.lionel.student_jpa.model.User;
 import com.lionel.student_jpa.service.UserService;
 import com.lionel.student_jpa.utils.Auth;
 import com.lionel.student_jpa.utils.Generator;
+import com.lionel.student_jpa.utils.SetHeader;
 
 @Controller
 public class UserController {
@@ -26,9 +28,15 @@ public class UserController {
     @Autowired
     UserService userService;
 
+	@Autowired
+	HttpServletResponse res;
+	
+
     @GetMapping( value = "/login" )
 	public ModelAndView getLoginPage()
 	{
+		SetHeader.make( res );
+		
 		return new ModelAndView( "LGN001" , "user" , new User() );
 	}
 	
@@ -61,7 +69,7 @@ public class UserController {
 		}
 		
 		req.getSession().setAttribute( "authUser", savedUser );
-		return "MNU001";
+		return "redirect:/home";
 	}
 	
 	@GetMapping( value  = "/logout" )
@@ -81,6 +89,7 @@ public class UserController {
 	@GetMapping( value = "/users" )
 	public String getUsersPage( HttpSession session , ModelMap model , HttpServletRequest req )
 	{
+		SetHeader.make( res );
 
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
@@ -118,6 +127,8 @@ public class UserController {
 	@GetMapping( value = "/users/new" )
 	public String getUserCreatePage( HttpSession session , ModelMap model )
 	{
+		SetHeader.make( res );
+
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
 		}
@@ -172,6 +183,8 @@ public class UserController {
 	@GetMapping( value = "/users/{id}/delete" )
 	public String getDeleteUser( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
+		SetHeader.make( res );
+
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
 		}
@@ -188,6 +201,8 @@ public class UserController {
 	@GetMapping( value = "/users/{id}/update" )
 	public String getUserUpdatePage( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
+
+		SetHeader.make( res );
 		
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
@@ -195,7 +210,6 @@ public class UserController {
 
 		User savedUser = userService.findById( id );
 
-		System.out.println(savedUser);
 		
 		if( savedUser == null ) return "USR003?msg=Something went wrong!";
 		

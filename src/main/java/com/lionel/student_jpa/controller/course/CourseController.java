@@ -1,5 +1,6 @@
 package com.lionel.student_jpa.controller.course;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,21 @@ import com.lionel.student_jpa.constants.Const;
 import com.lionel.student_jpa.model.Course;
 import com.lionel.student_jpa.service.CourseService;
 import com.lionel.student_jpa.utils.Auth;
+import com.lionel.student_jpa.utils.SetHeader;
 
 @Controller
 public class CourseController {
 
 	@Autowired 
 	CourseService courseService;
+
+	@Autowired
+	HttpServletResponse res;
     
     @GetMapping( value = "/courses/new" )
 	public String getCreateCoursePage( HttpSession session , ModelMap model  )
 	{
+		SetHeader.make( res );
 		
 		if( !Auth.check(session, "authUser") ){
 			return Const.REDIRECT;
