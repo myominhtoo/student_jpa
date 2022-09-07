@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.lionel.student_jpa.constants.Const;
+import com.lionel.student_jpa.controller.constants.Const;
 import com.lionel.student_jpa.model.Course;
 import com.lionel.student_jpa.service.CourseService;
 import com.lionel.student_jpa.utils.Auth;

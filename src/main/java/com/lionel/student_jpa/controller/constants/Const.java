@@ -1,4 +1,4 @@
-package com.lionel.student_jpa.constants;
+package com.lionel.student_jpa.controller.constants;
 
 public class Const {
     
