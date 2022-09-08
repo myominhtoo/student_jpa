@@ -7,3 +7,16 @@ Tests
 - findAllTest()
 - isDuplicateTest()
 - findByIdTest()
+
+(2)TestUserService
+- saveTest()
+- findByIdTest()
+- findAllTest()
+- deleteOneTest()
+- updateOneTest()
+- isEmailDuplicateTest()
+- getMaxIdTest()
+- findByEmailTest()
+- findWithIdTest()
+- findWithName()
+- findWithIdAndName()
