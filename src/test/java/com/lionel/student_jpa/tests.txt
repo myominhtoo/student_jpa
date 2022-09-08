@@ -73,4 +73,26 @@ Tests
 - postUpdateUserWithUpdateErrorTest()
 - postUpdateUserWithOkTest()
 
+(3)TestStudentController
+
+- getStudentsPageTest()
+- getStudentCreatePageTest()
+
+- postStudentCreateWithBindErrorTest()
+- postStudentCreateWithSaveErrotTest()
+- postStudentCreateWithOkTest()
+
+- getStudentDetailPageTest()
+- getStudentDetailPageWithErrorTest()
+
+- getStudentDeleteWithErroTest()
+- getStudntDeleteWithOkTest()
+
+- getStudentUpdatePageWithErrorTest()
+- getStudentUpdatePageWithOkTest()
+
+- postStudentUpdateWithBindErrorTest()
+- postStudentUpdateWithSaveErrorTest()
+- postStudentUpdateWithOkTest()
+
 

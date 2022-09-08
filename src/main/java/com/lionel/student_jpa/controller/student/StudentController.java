@@ -143,6 +143,7 @@ public class StudentController {
 		if( !studentService.save( student ))
 		{
 			model.addAttribute( "error", "Something went wrong!");
+			model.addAttribute( "courses" , courseService.findAll() );
 			model.addAttribute( "student", student );
 			return "STU001";
 		}
@@ -163,7 +164,7 @@ public class StudentController {
 		
 		if( student == null )
 		{
-			return "redirect:/users?msg=Something went wrong!";
+			return "redirect:/students?msg=Something went wrong!";
 		}
 
 		model.addAttribute( "student", student);
@@ -173,7 +174,7 @@ public class StudentController {
 	}
 	
 	@GetMapping( value = "/students/{id}/update" )
-	public String getStuentUpdatePage( HttpSession session , @PathVariable("id") String id , ModelMap model )
+	public String getStudentUpdatePage( HttpSession session , @PathVariable("id") String id , ModelMap model )
 	{
 		SetHeader.make( res );
 		if( !Auth.check(session, "authUser") ){
@@ -184,7 +185,7 @@ public class StudentController {
 		
 		if( student == null )
 		{
-			return "redirect:/users?msg=Something went wrong!";			
+			return "redirect:/students?msg=Something went wrong!";
 		}
 
 		model.addAttribute( "student" , student );
@@ -231,8 +232,7 @@ public class StudentController {
 		
 		if( !studentService.deleteOne( id ) )
 		{
-			model.addAttribute( "error", "Something went wrong!");
-			return "STU003";
+			return "redirect:/students?error=Something went wrong!";
 		}
 		
 		return "redirect:/students?msg=Successfully Deleted!";
