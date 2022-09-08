@@ -35,3 +35,14 @@ Tests
 - findWithIdAndCourseTest()
 - findWithNameAndCourseTest()
 - findWithIdAndNameAndCourseTest()
+
+#Controllers
+
+(1)TestCourseController
+
+- getCourseCreatePageTest()
+- postCourseCreateWithBindError()
+- postCourseCreateWithDuplicate()
+- postCourseCreateWithSaveError()
+- postCourseCreateWithOk()
+
