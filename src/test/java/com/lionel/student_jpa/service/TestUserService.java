@@ -48,7 +48,6 @@ public class TestUserService {
 
     @Test
     public void saveTest(){
-        System.out.println(user);
         when( this.userRepo.save(user) ).thenReturn( user );
         this.userService.save( user );
         verify( userRepo , times(1)).save( user );

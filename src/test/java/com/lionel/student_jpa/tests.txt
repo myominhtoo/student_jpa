@@ -20,3 +20,18 @@ Tests
 - findWithIdTest()
 - findWithName()
 - findWithIdAndName()
+
+(3)TestStudentService
+- saveTest()
+- findAllTest()
+- findByIdTest()
+- deleteOneTest()
+- updateOneTest()
+- getMaxIdTest()
+- findWithIdTest()
+- findWithNameTest()
+- findWithCourseTest()
+- findWithIdAndNameTest()
+- findWithIdAndCourseTest()
+- findWithNameAndCourseTest()
+- findWithIdAndNameAndCourseTest()
