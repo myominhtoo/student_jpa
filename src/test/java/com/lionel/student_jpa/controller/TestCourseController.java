@@ -1,6 +1,5 @@
 package com.lionel.student_jpa.controller;
 
-import com.lionel.student_jpa.controller.constants.Const;
 import com.lionel.student_jpa.model.Course;
 import com.lionel.student_jpa.model.User;
 import com.lionel.student_jpa.repo.CourseRepo;
@@ -20,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -62,7 +60,7 @@ public class TestCourseController {
     }
 
     @Test
-    public void getCourseCreatePage() throws Exception {
+    public void getCourseCreatePageTest() throws Exception {
         this.mockMvc.perform( get("/courses/new").sessionAttr("authUser",user) )
                 .andExpect( status().is(200))
                 .andExpect(model().attributeExists("course"))
@@ -70,7 +68,7 @@ public class TestCourseController {
     }
 
     @Test
-    public void postCreateCourseWithBindError() throws  Exception {
+    public void postCreateCourseWithBindErrorTest() throws  Exception {
         course.setId("id");
         course.setName("");
         this.mockMvc.perform( post("/courses/new").flashAttr("course",course).sessionAttr( "authUser" , user ) )
@@ -80,7 +78,7 @@ public class TestCourseController {
     }
 
     @Test
-    public void postCourseCreateWithDuplicate() throws  Exception {
+    public void postCourseCreateWithDuplicateTest() throws  Exception {
         course.setId("id");
         course.setName("name");
 
@@ -92,7 +90,7 @@ public class TestCourseController {
                 .andExpect( model().attributeExists("course","error"));
     }
     @Test
-    public void postCourseCreateWithSaveError() throws Exception {
+    public void postCourseCreateWithSaveErrorTest() throws Exception {
         course.setId("id");
         course.setName("name");
 
@@ -105,7 +103,7 @@ public class TestCourseController {
     }
 
     @Test
-    public void postCourseCreateWithOk() throws  Exception {
+    public void postCourseCreateWithOkTest() throws  Exception {
         course.setId("id");
         course.setName("name");
 

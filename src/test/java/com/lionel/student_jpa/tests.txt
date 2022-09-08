@@ -41,8 +41,36 @@ Tests
 (1)TestCourseController
 
 - getCourseCreatePageTest()
-- postCourseCreateWithBindError()
-- postCourseCreateWithDuplicate()
-- postCourseCreateWithSaveError()
-- postCourseCreateWithOk()
+- postCourseCreateWithBindErrorTest()
+- postCourseCreateWithDuplicateTest()
+- postCourseCreateWithSaveErrorTest()
+- postCourseCreateWithOkTest()
+
+(2)TestUserController
+
+- getLoginPageTest()
+- postLoginWithBlankTest()
+- postLoginWithInvalidDataTest()
+- postLoginWithOkTest()
+- getUsersPageTest()
+- getUserCreatePageTest()
+
+- postCreateUserWithBindErrorTest()
+- postCreatUserWithPasswordErrorTest()
+- postCreateUserWithDuplicateEmailErrorTest()
+- postCreateUserWithSaveErrorTest()
+- postCreateUserWithOkTest()
+
+- getDeleteUserWithErrorTest()
+- getDeleteUserWithOkTest()
+
+- getUpdatePageWithErrorTest()
+- getUpdatePageWithOkTest()
+
+- postUpdateUserWithBindErrorTest()
+- postUpdateUserWithPasswordTest()
+- postUpdateUserWithDuplicateEmailTest()
+- postUpdateUserWithUpdateErrorTest()
+- postUpdateUserWithOkTest()
+
 

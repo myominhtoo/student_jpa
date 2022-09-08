@@ -192,6 +192,8 @@ public class UserController {
 		if( !userService.deleteOne( id ) )
 		{
 			model.addAttribute( "error" , "Something went wrong!" );
+			model.addAttribute("users",userService.findAll());
+			model.addAttribute("user",new User());
 			return "USR003";
 		}
 		
@@ -211,7 +213,7 @@ public class UserController {
 		User savedUser = userService.findById( id );
 
 		
-		if( savedUser == null ) return "USR003?msg=Something went wrong!";
+		if( savedUser == null ) return "redirect:/users?msg=Something went wrong!";
 		
 		model.addAttribute( "user" , savedUser );
 		
