@@ -1,6 +1,7 @@
 package com.lionel.student_jpa.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,8 @@ public class StudentService {
     }
 
     public Student findById( String studentId ){
-        return studentRepo.findById( studentId ).get();
+        Optional<Student> foundStu = studentRepo.findById( studentId );
+        return foundStu.isPresent() ? foundStu.get() : new Student();
     }
 
     public boolean deleteOne( String studentId ){
