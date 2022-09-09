@@ -3,11 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+
+import { AppComponent , AddCourseComponent , AddUserComponent, 
+        StudentsComponent , StudentDetailComponent , AddStudentComponent, 
+        UsersComponent , UserDetailComponent  } from './util/common';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddCourseComponent,
+    AddStudentComponent,
+    StudentsComponent,
+    StudentDetailComponent,
+    AddUserComponent,
+    UsersComponent,
+    UserDetailComponent,
   ],
   imports: [
     BrowserModule,
