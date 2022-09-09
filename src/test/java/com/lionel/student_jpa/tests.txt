@@ -54,6 +54,7 @@ Tests
 - postLoginWithOkTest()
 - getUsersPageTest()
 - getUserCreatePageTest()
+- getLogoutTest()
 
 - postCreateUserWithBindErrorTest()
 - postCreatUserWithPasswordErrorTest()
