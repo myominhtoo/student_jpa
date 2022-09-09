@@ -8,6 +8,7 @@ import { UsersComponent } from '../components/user/users.component';
 import { UserDetailComponent } from '../components/user/user-detail.component';
 import { HomeComponent } from '../components/home.component';
 import { LoginComponent } from '../components/user/login.component';
+import { NavbarComponent  } from '../components/layouts/navbar.component';
 
 
 export {
@@ -20,5 +21,6 @@ export {
     UsersComponent,
     UserDetailComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
 }

@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector : 'user-detail',
-    template : '<h1>user detail component</h1>'
+    templateUrl : './user-detail.component.html',
 })
 export class UserDetailComponent {}

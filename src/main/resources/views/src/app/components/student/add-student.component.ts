@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector : 'add-student',
-    template : '<h1>add student</h1>',
+    templateUrl : './add-student.component.html',
 })
 export class AddStudentComponent{}
