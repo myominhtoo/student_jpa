@@ -5,7 +5,6 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-@Builder
 public class HttpResponse {
 
     private int statusCode;
