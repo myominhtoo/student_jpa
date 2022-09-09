@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
     selector : 'user-detail',
     template : '<h1>user detail component</h1>'
 })
-export default class UserDetailComponent {}
+export class UserDetailComponent {}

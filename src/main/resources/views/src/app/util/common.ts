@@ -5,7 +5,9 @@ import { StudentsComponent } from '../components/student/students.component';
 import { StudentDetailComponent } from '../components/student/student-detail.component';
 import { AddUserComponent } from '../components/user/add-user.component';
 import { UsersComponent } from '../components/user/users.component';
-import UserDetailComponent from '../components/user/user-detail.component';
+import { UserDetailComponent } from '../components/user/user-detail.component';
+import { HomeComponent } from '../components/home.component';
+import { LoginComponent } from '../components/user/login.component';
 
 
 export {
@@ -16,5 +18,7 @@ export {
     StudentsComponent,
     AddUserComponent,
     UsersComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    HomeComponent,
+    LoginComponent
 }
