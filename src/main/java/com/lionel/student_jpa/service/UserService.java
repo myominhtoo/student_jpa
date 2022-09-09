@@ -1,6 +1,7 @@
 package com.lionel.student_jpa.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,8 @@ public class UserService {
     }
 
     public User findById( String userId ){
-        return userRepo.findById( userId ).get();
+       Optional<User> foundUser = userRepo.findById( userId );
+       return foundUser.isPresent() ? foundUser.get() : new User();
     }
 
     public List<User> findAll(){
