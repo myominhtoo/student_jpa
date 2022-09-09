@@ -1,6 +1,5 @@
 package com.lionel.student_jpa.model;
 
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 

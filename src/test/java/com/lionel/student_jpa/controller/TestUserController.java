@@ -3,7 +3,6 @@ package com.lionel.student_jpa.controller;
 import com.lionel.student_jpa.model.User;
 import com.lionel.student_jpa.repo.UserRepo;
 import com.lionel.student_jpa.service.UserService;
-import lombok.ToString;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,8 +29,6 @@ public class TestUserController {
     private UserService userService;
 
     private static User user;
-
-    private static List<User> users;
 
     @BeforeAll
     public static void doBeforeAll(){

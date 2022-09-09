@@ -3,7 +3,7 @@ package com.lionel.student_jpa.service;
 import com.lionel.student_jpa.model.Student;
 import com.lionel.student_jpa.repo.StudentRepo;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;

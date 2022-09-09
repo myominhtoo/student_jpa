@@ -39,7 +39,6 @@ public class TestCourseController {
 
     private static List<Course> courses;
 
-    private final String REDIRECT_URL = "/login?error=Please login to continue!";
 
     @BeforeAll
     public static void doBeforeTests(){
