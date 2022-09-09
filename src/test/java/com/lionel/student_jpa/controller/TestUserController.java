@@ -311,4 +311,12 @@ public class TestUserController {
                 .andExpect( view().name("USR002"))
                 .andExpect( model().attributeExists("user" , "error"));
     }
+
+    @Test
+    public void getLogoutTest() throws Exception {
+        this.mockMvc.perform( get("/logout") )
+                .andExpect(status().is(302) )
+                .andExpect( redirectedUrl("/login?msg=Successfully Logout!") );
+    }
+
 }
