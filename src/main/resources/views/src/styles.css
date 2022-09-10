@@ -8,6 +8,7 @@ span,p,h1,h2,h3,h4,h5,h5,div{
 
 :root{
     --dark : rgba( 0 , 0, 0, 0.75);
+    --bg-th :rgba(48, 81, 219,1);
     --th : rgba(225, 27, 22,1);
     --snow : rgba( 255 ,255 ,255 , 1);
     --pale-snow : rgba(235,255,255,0.05)
@@ -31,6 +32,10 @@ span,p,h1,h2,h3,h4,h5,h5,div{
     color : var(--th) !important;
 }
 
+.bg-th{
+    background-color: var(--bg-th) !important;
+}
+
 .bg-dark{
     background-color: var(--dark) !important;
 }
@@ -47,6 +52,7 @@ span,p,h1,h2,h3,h4,h5,h5,div{
 #navbar{
     width:100% !important;
     height:10vh !important;
+    box-shadow: 0 0 5px var(--dark);
 }
 
 #main{
@@ -81,8 +87,7 @@ sidebar footer{
 #main-content{
     margin-top: 10vh !important;
     width:82% !important;
-    height:100%;
-    background-color: grey;
+    height:auto;
 }
 
 #sidebar-item , #sidebar-childitem{

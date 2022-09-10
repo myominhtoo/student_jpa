@@ -7,5 +7,5 @@ export class Student {
     gender! : number;
     education! : number;
     attendCourses! : Course[];
-    course! : string;
+    // course! : string;
 }
