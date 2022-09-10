@@ -1,9 +1,9 @@
 
 <table class="table table-striped table-bordered">
-    <thead>
+    <thead class="fw-bold">
         <tr>
             <td>No</td>
-            <td *ngFor="let column of columns">{{ column | uppercase }}</td>
+            <td *ngFor="let column of columns">{{ column }}</td>
             <td>Actions</td>
         </tr>
     </thead>
@@ -27,8 +27,8 @@
                 <td>{{ data.name }}</td>
                 <td>{{ data.email }}</td>
                 <td class="d-flex gap-2">
-                    <button class="btn btn-sm btn-success">Update</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
+                    <button [routerLink]="'/users/'+data.id" class="btn btn-sm btn-success">Update</button>
+                    <button [routerLink]="'/users/'+data.id" class="btn btn-sm btn-danger">Delete</button>
                 </td>       
             </tr>
         </ng-container>
@@ -46,5 +46,14 @@
                 </td>       
             </tr>
         </ng-container>
+        <!-- when loading -->
+        <tr *ngIf="status.isLoading" id="table-status">
+            <td colspan="5">Loading users...</td>
+        </tr>
+        
+        <!-- when no user to show -->
+        <tr *ngIf="status.isBlank" id="table-status">
+            <td colspan="5">There is no user to show!</td>
+        </tr>
     </tbody>
 </table>

@@ -1,4 +1,5 @@
 import { Component , Input } from "@angular/core";
+import { Status } from "src/app/models/Status";
 
 @Component({
     selector : 'Table',
@@ -13,5 +14,9 @@ export class TableComponent {
 
     @Input('target') target : string = '';
 
+    @Input('status') status : Status = {
+        isLoading : false,
+        isBlank : false
+    }
 
 }

@@ -124,3 +124,17 @@ sidebar footer{
     font-size: 25px !important;
     font-style: unset !important;
 }
+
+Table{
+    margin:30px auto;
+    width:85% !important;
+}
+
+Table table{
+    width:100%;
+}
+
+#table-status{
+    font-weight:bold;
+    text-align:center;
+}

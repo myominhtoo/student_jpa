@@ -5,12 +5,9 @@
         <sidebar></sidebar>
         
         <div id="main-content">
-            <h1 class="text-danger">Users</h1>
+            <h1 class="text-danger fw-bold text-center my-5 h3">Users' Management</h1>
 
-            <br/>
-            <br>
-
-            <Table [columns]="columns" [datas]="datas" [target]="target">
+            <Table [datas]="users" [columns]="columns" target="user" [status]="status" >
             </Table>
 
         </div>

@@ -1,48 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/Course';
+import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
+import { User } from 'src/app/models/User';
+import UserService from 'src/app/services/user/UserService';
 
 @Component({
     selector : 'users',
     templateUrl : './users.component.html',
 })
-export class UsersComponent{
+export class UsersComponent implements OnInit{
 
+    users : User[] = [];
 
-    columns : string[]  = [ 'id' , 'name' , 'attend courses' ];
+    status : Status  = {
+        isBlank : false,
+        isLoading : false,
+    }
 
-    // datas : Course[] = [
-    //     {
-    //         id : "C0001",
-    //         name : "Java",
-    //     },
-    //     {
-    //         id : "C002",
-    //         name : "php",
-    //     }
-    // ]
-    
-    datas : Student[] = [
-        {
-            id : "S001",
-            name : "Student 1",
-            dob : "2003-01-01",
-            education : 1,
-            gender : 0,
-            attendCourses : [
-                {
-                    id  : "C001",
-                    name : "java"
-                },
-                {
-                    id  : "C001",
-                    name : "php"
-                }
-            ],
-        }
+    columns : string[] = [
+        'Id',
+        'Name',
+        'Email'
     ]
 
-    target : string = 'student';
+    constructor( private userService : UserService ){}
 
+    ngOnInit() : void {
+       this.fetchUsers();
+    }
+
+    fetchUsers() : void {
+        this.status.isLoading = true;
+        this.userService.getUsers()
+        .subscribe({
+            next : ( datas ) => {
+                this.status.isLoading = false;
+
+                if( datas.length == 0 ) this.status.isBlank = true;
+                else this.status.isBlank = false;
+
+                this.users = datas;
+            },
+            error : ( e ) => console.log( e )
+        })
+    }
 
 }
