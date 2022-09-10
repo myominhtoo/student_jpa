@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {  AddCourseComponent , AddUserComponent,  StudentsComponent ,
    StudentDetailComponent , AddStudentComponent, 
-  UsersComponent , UserDetailComponent , HomeComponent ,LoginComponent  } from './util/common';
+  UsersComponent , UserDetailComponent , HomeComponent ,LoginComponent, CoursesComponent  } from './util/common';
 
 const routes: Routes = [
   {
@@ -40,6 +40,10 @@ const routes: Routes = [
   {
     path : 'add-course',
     component : AddCourseComponent
+  },
+  {
+    path : 'courses',
+    component : CoursesComponent
   }
 ];
 

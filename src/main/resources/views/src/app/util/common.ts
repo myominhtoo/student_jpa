@@ -9,6 +9,7 @@ import { UserDetailComponent } from '../components/user/user-detail.component';
 import { HomeComponent } from '../components/home.component';
 import { LoginComponent } from '../components/user/login.component';
 import { NavbarComponent  } from '../components/layouts/navbar.component';
+import { CoursesComponent } from '../components/course/courses.component';
 
 
 export {
@@ -23,4 +24,5 @@ export {
     HomeComponent,
     LoginComponent,
     NavbarComponent,
+    CoursesComponent
 }

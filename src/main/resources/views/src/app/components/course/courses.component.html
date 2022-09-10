@@ -1,0 +1,16 @@
+<div class="w-100 h-auto container-fluid p-0 m-0">
+    <navbar></navbar>
+
+    <main id="main">
+        <sidebar></sidebar>
+        
+        <div id="main-content">
+
+            <h1 class="text-danger my-5 text-center h3 fw-bold">Course Management </h1>
+
+            <Table [datas]="courses" target="course" [columns]="columns" [status]="status" ></Table>
+
+        </div>
+
+    </main>
+</div>
