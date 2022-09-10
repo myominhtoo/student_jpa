@@ -136,7 +136,7 @@ sidebar footer{
 }
 
 Table{
-    margin:30px auto;
+    margin:10px auto;
     width:85% !important;
 }
 
@@ -147,4 +147,8 @@ Table table{
 #table-status{
     font-weight:bold;
     text-align:center;
+}
+
+button{
+    font-weight:bold !important;
 }
