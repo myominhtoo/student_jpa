@@ -6,7 +6,7 @@ import CourseService from 'src/app/services/course/CourseService';
 import StudentService from 'src/app/services/student/StudentService';
 import { fetchCourses } from 'src/app/util/courses';
 import handleAddCourse from 'src/app/util/handleAddCourse';
-import { Form } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector : 'add-student',
@@ -49,7 +49,7 @@ export class AddStudentComponent implements OnInit {
     }
 
 
-    handleAddStudent( form : Form ) : void {
+    handleAddStudent( form : NgForm ) : void {
         console.log( this.student );
     }
 

@@ -8,20 +8,22 @@
 
             <h1 class="text-danger text-center fw-bold my-5 h3">Add Course</h1>
 
-            <form class="form w-50 mx-auto my-3">
+            <form #courseAddForm="ngForm" (submit)="handleAddCourse(courseAddForm)" class="form w-50 mx-auto my-3">
 
                 <div class="form-group my-3">
                     <label for="" class="form-label fw-bold">Course Id</label>
                     <input [(ngModel)]="course.id" name="id" type="text" class="form-control"  placeholder="Enter course's id"  required autofocus />
+                    <span *ngIf="courseError.id.hasError" id="error">{{ courseError.id.msg }}</span>
                 </div>
 
                 <div class="form-group my-3">
                     <label for="" class="form-label fw-bold">Course Name</label>
                     <input [(ngModel)]="course.name" name="name" type="text" class="form-control" placeholder="Enter course's name" required />
+                    <span *ngIf="courseError.name.hasError" id="error">{{ courseError.name.msg }}</span>
                 </div>
 
                 <div class="form-group my-3">
-                    <button class="btn btn-sm btn-primary w-100">Add</button>
+                    <button class="btn btn-sm btn-primary w-100">{{ status.isLoading ? 'Adding...' : 'Add'}}</button>
                     <a routerLink="/courses" class="text-danger text-center my-1 h6 d-block">Cancel</a>
                 </div>
             </form>

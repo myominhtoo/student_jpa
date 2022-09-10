@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/User';
-import { Form } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector : 'add-user',
@@ -17,7 +17,7 @@ export class AddUserComponent {
         role : 0,
     }
 
-    handleAddUser( form : Form ) : void {
+    handleAddUser( form : NgForm ) : void {
 
     }
 

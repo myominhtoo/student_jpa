@@ -58,7 +58,7 @@
                     <label for="" class="form-label fw-bold">Attend Courses</label>
                     <div *ngIf="!status.isBlank && !status.isLoading" class="d-flex gap-3">
                         <div *ngFor="let course of data.courses" class="d-flex align-items-center gap-1">
-                            <label [for]="course.id" class="form-label fw-bold">{{ course.name }}</label>
+                            <label [for]="course.id" class="form-label fw-bold">{{ course.name | titlecase }}</label>
                             <input (change)="addAttendCourse( course.id )"  [value]="course.id" [name]="course.id" type="checkbox" [id]="course.id" class="form-check">
                         </div>
                     </div>
