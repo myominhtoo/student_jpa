@@ -38,7 +38,7 @@
                 <td>{{ data.id }}</td>
                 <td>{{ data.name }}</td>
                 <td>
-                    <span *ngFor="let course of data.attendCourses" class="btn btn-sm btn-primary mx-1">{{ course.name }}</span>
+                    <span *ngFor="let course of data.attendCourses" class="btn btn-sm btn-primary mx-1">{{ course.name | uppercase }}</span>
                 </td>
                 <td class="d-flex gap-2">
                     <button class="btn btn-sm btn-success">Update</button>

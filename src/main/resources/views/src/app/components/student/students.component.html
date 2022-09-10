@@ -5,7 +5,10 @@
         <sidebar></sidebar>
         
         <div id="main-content">
-            <h1 class="text-danger">students component</h1>
+            <h1 class="text-danger h3 text-center my-5 fw-bold">Student Management</h1>
+
+            <Table [datas]="students" [status]="status" [columns]="columns" target="student" ></Table>
+
         </div>
 
     </main>

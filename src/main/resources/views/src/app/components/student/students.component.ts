@@ -1,7 +1,48 @@
-import { Component } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
+import { Status } from 'src/app/models/Status';
+import { Student } from 'src/app/models/Student';
+import StudentService from 'src/app/services/student/StudentService';
 
 @Component({
     selector : 'students',
     templateUrl : './students.component.html',
 })
-export class StudentsComponent {}
+export class StudentsComponent implements OnInit {
+
+    students : Student[] = [];
+
+    columns : string[] = [
+        'Id',
+        'Name',
+        'Attend Courses'
+    ]
+
+    status : Status = {
+        isBlank : false,
+        isLoading : false
+    }
+
+    constructor( private studentService : StudentService ){}
+
+    ngOnInit(): void {
+        this.fetchStudents();
+    }
+
+    fetchStudents() : void {
+        this.status.isLoading = true;
+
+        this.studentService.getStudents()
+        .subscribe({
+            next : ( datas ) => {
+                this.status.isLoading = false;
+
+                if( datas.length == 0 ) this.status.isBlank = true;
+                else this.status.isBlank = false;
+
+                this.students = datas;
+
+            }
+        })
+    }
+
+}
