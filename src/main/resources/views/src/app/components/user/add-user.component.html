@@ -5,7 +5,45 @@
         <sidebar></sidebar>
         
         <div id="main-content">
-            <h1 class="text-danger">add user</h1>
+
+            <h1 class="text-danger fw-bold text-center my-5 h3">Add User</h1>
+
+            <form action="" class="form my-3 w-50 mx-auto">
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Username</label>
+                    <input [(ngModel)]="user.name" name="name" type="text" class="form-control" placeholder="Enter username" required autofocus />
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Email Address</label>
+                    <input [(ngModel)]="user.email" name="email" type="text" class="form-control" placeholder="Enter email address" required/>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Password</label>
+                    <input [(ngModel)]="user.password" name="password" type="text" class="form-control" placeholder="Enter password" required />
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Confirm-password</label>
+                    <input [(ngModel)]="user.confirm" name="confirm" type="text" class="form-control" placeholder="Enter confirm-password" required />
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Role</label>
+                    <select [(ngModel)]="user.role" name="role" id="" class="form-select">
+                        <option value="" disabled>Choose Role</option>
+                        <option value="0">User</option>
+                        <option value="0">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-group my-3">
+                    <button class="btn btn-sm btn-primary w-100">Add</button>
+                    <a routerLink="/users" class="text-danger text-center h6 d-block my-1">Cancel</a>
+                </div>
+            </form>
+
         </div>
 
     </main>

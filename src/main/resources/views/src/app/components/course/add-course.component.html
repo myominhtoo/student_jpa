@@ -12,12 +12,12 @@
 
                 <div class="form-group my-3">
                     <label for="" class="form-label fw-bold">Course Id</label>
-                    <input type="text" class="form-control"  placeholder="Enter course's id"  required autofocus />
+                    <input [(ngModel)]="course.id" name="id" type="text" class="form-control"  placeholder="Enter course's id"  required autofocus />
                 </div>
 
                 <div class="form-group my-3">
                     <label for="" class="form-label fw-bold">Course Name</label>
-                    <input type="text" class="form-control" placeholder="Enter course's name" required />
+                    <input [(ngModel)]="course.name" name="name" type="text" class="form-control" placeholder="Enter course's name" required />
                 </div>
 
                 <div class="form-group my-3">
