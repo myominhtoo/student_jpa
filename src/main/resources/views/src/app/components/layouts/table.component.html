@@ -13,7 +13,7 @@
             <tr *ngFor="let data of datas;let idx = index;">
                 <td>{{ idx + 1 }}</td>
                 <td>{{ data.id }}</td>
-                <td>{{ data.name }}</td>
+                <td>{{ data.name | titlecase }}</td>
                 <td class="d-flex gap-2">
                     <button class="btn btn-sm btn-success">Update</button>
                     <button class="btn btn-sm btn-danger">Delete</button>
@@ -24,7 +24,7 @@
             <tr *ngFor="let data of datas;let idx = index;">
                 <td>{{ idx + 1 }}</td>
                 <td>{{ data.id }}</td>
-                <td>{{ data.name }}</td>
+                <td>{{ data.name |  titlecase }}</td>
                 <td>{{ data.email }}</td>
                 <td class="d-flex gap-2">
                     <button [routerLink]="'/users/'+data.id" class="btn btn-sm btn-success">Update</button>
@@ -38,7 +38,7 @@
                 <td>{{ data.id }}</td>
                 <td>{{ data.name }}</td>
                 <td>
-                    <span *ngFor="let course of data.attendCourses" class="btn btn-sm btn-primary mx-1">{{ course.name | uppercase }}</span>
+                    <span *ngFor="let course of data.attendCourses" class="btn btn-sm btn-primary mx-1">{{ course.name | titlecase }}</span>
                 </td>
                 <td class="d-flex gap-2">
                     <button class="btn btn-sm btn-success">Update</button>
