@@ -8,6 +8,7 @@ import { AppComponent , AddCourseComponent , AddUserComponent,
         StudentsComponent , StudentDetailComponent , AddStudentComponent, 
         UsersComponent , UserDetailComponent , HomeComponent, LoginComponent , CoursesComponent  } from './util/common';
 import { LayoutsModule } from './components/layouts/layouts.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LayoutsModule } from './components/layouts/layouts.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    LayoutsModule
+    LayoutsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,6 +14,10 @@ span,p,h1,h2,h3,h4,h5,h5,div{
     --pale-snow : rgba(235,255,255,0.05)
 }
 
+body{
+    background : #eee !important;
+}
+
 .snow{
     color : var(--snow) !important;
 }

@@ -5,9 +5,9 @@
         </h3>
 
         <ul class="navbar-nav fw-bold h6">
-            <li class="nav-item d-flex flex-column align-items-center">
+            <li class="nav-item d-flex flex-column align-items-center snow">
                 <span>Username & role</span>
-                <span>Today Date</span>
+                <span>{{ todayDate | date :'shortDate' }}</span>
             </li>
         </ul>
     </main>
