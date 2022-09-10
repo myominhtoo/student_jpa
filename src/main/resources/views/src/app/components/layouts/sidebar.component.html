@@ -1,34 +1,36 @@
 <nav id="sidebar">
-    <a href="" id="sidebar-item">
-        <span>User Management</span>
-        <i class="fa-solid fa-caret-right"></i>
-        <i class="fa-solid fa-caret-down d-none"></i>
+    <a (click)="toggleSidebarBtns('user')" id="sidebar-item" [ngClass]="{ 'bg-pale-snow show-btns' : showUserBtns ? true : false }">
+        <span>User Controls</span>
+        <span *ngIf="!showUserBtns"><i class="fa-solid fa-caret-right"></i></span>
+        <span *ngIf="showUserBtns"><i class="fa-solid fa-caret-down"></i></span>
     </a>
 
-    <div class="w-auto h-auto p-0 m-0">
+    <div *ngIf="showUserBtns" class="w-auto h-auto p-0 m-0">
         <a routerLink="/users" id="sidebar-childitem">See Users</a>
         <a routerLink="/add-user" id="sidebar-childitem">Add User</a>
     </div>
 
-    <a href="" id="sidebar-item">
-        <span>Course Management</span>
-        <i class="fa-solid fa-caret-right"></i>
-        <i class="fa-solid fa-caret-down d-none"></i>
+    <a (click)="toggleSidebarBtns('course')" id="sidebar-item" [ngClass]="{'bg-pale-snow show-btns' : showCourseBtns ? true : false }">
+        <span>Course Controls</span>
+        <i *ngIf="!showCourseBtns" class="fa-solid fa-caret-right"></i>
+        <i *ngIf="showCourseBtns" class="fa-solid fa-caret-down "></i>
     </a>
 
-    <div class="w-auto h-auto p-0 m-0">
+    <div *ngIf="showCourseBtns" class="w-auto h-auto p-0 m-0">
         <!-- <a routerLink="/courses" id="sidebar-childitem">See Courses</a> -->
         <a routerLink="/add-course" id="sidebar-childitem">Add Course</a>
     </div>
 
-    <a href="" id="sidebar-item">
-        <span>Student Management</span>
-        <i class="fa-solid fa-caret-right"></i>
-        <i class="fa-solid fa-caret-down d-none"></i>
+    <a (click)="toggleSidebarBtns('student')" id="sidebar-item" [ngClass]="{ 'bg-pale-snow show-btns' : showStudentBtns ? true : false  }">
+        <span>Student Controls</span>
+        <i *ngIf="!showStudentBtns" class="fa-solid fa-caret-right"></i>
+        <i *ngIf="showStudentBtns"  class="fa-solid fa-caret-down "></i>
     </a>
 
-    <div class="w-auto h-auto p-0 m-0">
+    <div *ngIf="showStudentBtns" class="w-auto h-auto p-0 m-0">
         <a routerLink="/students" id="sidebar-childitem">See Students</a>
         <a routerLink="/add-student" id="sidebar-childitem">Add Student</a>
     </div>
+
+    <footer></footer>
 </nav>

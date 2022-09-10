@@ -8,6 +8,7 @@ span,p,h1,h2,h3,h4,h5,h5,div{
 
 :root{
     --dark : rgba( 0 , 0, 0, 0.75);
+    --th : rgba(225, 27, 22,1);
     --snow : rgba( 255 ,255 ,255 , 1);
     --pale-snow : rgba(235,255,255,0.05)
 }
@@ -25,10 +26,23 @@ span,p,h1,h2,h3,h4,h5,h5,div{
     color : var(--dark) !important;
 }
 
+.th{
+    font-weight: bold;
+    color : var(--th) !important;
+}
+
 .bg-dark{
     background-color: var(--dark) !important;
 }
 
+.bg-pale-snow{
+    background-color: var(--pale-snow) !important;
+}
+
+
+#icon:hover{
+    cursor : pointer;
+}
 
 #navbar{
     width:100% !important;
@@ -45,6 +59,13 @@ span,p,h1,h2,h3,h4,h5,h5,div{
 sidebar{
     width:18% !important;
     margin-top: 10vh;
+    position:relative;
+}
+
+sidebar footer{
+    position: absolute;
+    left:10px;
+    bottom:10px;
 }
 
 #sidebar{
@@ -75,14 +96,23 @@ sidebar{
     justify-content: space-between;
     align-items: center;
     transition: 0.3s all;
+    /* border: 2px solid var(--snow); */
+    margin: 2px 0;
+    border-radius: 5px ;
+}
+
+#sidebar-item.show-btns{
+    border: 1px solid var(--snow);
 }
 
 #sidebar-childitem{
     font-size: 17px !important;
+    border:none !important;
 }
 
 #sidebar-item:hover , #sidebar-childitem:hover{
     background-color: var(--pale-snow) !important;
+    cursor : pointer;
 }
 
 #sidebar-item i{
