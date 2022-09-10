@@ -1,15 +1,12 @@
-import { Component , OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
     selector : 'navbar',
     templateUrl : './navbar.component.html'
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
     todayDate : Date = new Date();
 
-    ngOnInit() : void {
-        console.log("inited")
-    }
 
 }

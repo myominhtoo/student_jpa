@@ -5,7 +5,27 @@
         <sidebar></sidebar>
         
         <div id="main-content">
+
             <h1 class="text-danger text-center fw-bold my-5 h3">Add Course</h1>
+
+            <form class="form w-50 mx-auto my-3">
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Course Id</label>
+                    <input type="text" class="form-control"  placeholder="Enter course's id"  required autofocus />
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Course Name</label>
+                    <input type="text" class="form-control" placeholder="Enter course's name" required />
+                </div>
+
+                <div class="form-group my-3">
+                    <button class="btn btn-sm btn-primary w-100">Add</button>
+                    <a routerLink="/courses" class="text-danger text-center my-1 h6 d-block">Cancel</a>
+                </div>
+            </form>
+
         </div>
 
     </main>
