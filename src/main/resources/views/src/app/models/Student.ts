@@ -5,6 +5,7 @@ export class Student {
     name! : string;
     dob! : string;
     gender! : number;
+    phone! : string;
     education! : number;
     attendCourses! : Course[];
     // course! : string;

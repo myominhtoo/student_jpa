@@ -15,6 +15,10 @@ export default {
         hasError : false,
         msg : '',
     },
+    phone : {
+        hasError : false,
+        msg : '',
+    },
     education : {
         hasError : false,
         msg : '',
