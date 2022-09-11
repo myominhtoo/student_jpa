@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,8 +20,30 @@ public class UserApi {
     private UserService userService;
 
     @GetMapping( value = "/users" )
-    public List<User> getUsers(){
-        return userService.findAll();
+    public List<User> getUsers( @RequestParam( value = "id" , required =  false) String id , @RequestParam( value = "name" , required = false) String name ){
+        List<User> users = new ArrayList<>();
+
+        if( id == null && name == null ){
+            users = userService.findAll();
+            return users;
+        }
+
+        if( id != null && !id.isEmpty() && name == null ){
+            users = userService.findWithId( "%"+id+"%" );
+            return users;
+        }
+        else if ( id == null && name != null && !name.isEmpty() ){
+            users = userService.findWithName(  "%"+name+"%" );
+            return users;
+        }
+        else if( id != null && name != null && !id.isEmpty() && !name.isEmpty() ){
+            users = userService.findWithIdAndName(  "%"+id+"%" ,  "%"+name+"%" );
+            return users;
+        }else{
+            users = userService.findAll();
+        }
+
+        return users;
     }
 
     @PostMapping( value = "/users" )

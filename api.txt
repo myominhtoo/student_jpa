@@ -21,4 +21,5 @@ API ( http://localhost:8080/api/ )
 - students/{id} ( GET -> student )
 - students/{id} ( DELETE -> delete student)
 - students/{id} ( PUT -> update student )
+- students/id ( GET -> get id for student )
 

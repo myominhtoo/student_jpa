@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,8 +20,42 @@ public class StudentApi {
     private StudentService studentService;
 
     @GetMapping( value = "/students" )
-    public List<Student> getStudents(){
-        return studentService.findAll();
+    public List<Student> getStudents( 
+        @RequestParam( value = "id" , required = false ) String id ,
+        @RequestParam( value = "name" , required =  false ) String name ,
+        @RequestParam( value = "course" , required = false ) String course ){
+
+        List<Student> students = new ArrayList<>();
+
+        if( id == null && name == null && course == null ){
+            students = studentService.findAll();
+            return students;
+        }
+
+        if( id != null && name == null && course == null ){
+            students = studentService.findWithId("%"+id+"%");
+            return students;
+        }
+        else if( id == null && name != null  && course == null ){
+            students = studentService.findWithName("%"+name+"%");
+            return students;
+        }else if( id == null && name == null && course != null ){
+            students = studentService.findWithCourse("%"+course+"%");
+            return students;
+        }else if( id != null  && name != null && course == null  ){
+            students = studentService.findwithIdAndName("%"+id+"%", "%"+name+"%");
+            return students;
+        }else if( id != null && name == null && course != null ){
+            students = studentService.findWithIdAndCourse("%"+id+"%", "%"+course+"%");
+            return students;
+        }else if( id == null && name != null && course != null  ){
+            students = studentService.findWithNameAndCourse("%"+name+"%", "%"+course+"%");
+            return students;
+        }else{
+            students = studentService.findWithIdAndNameAndCourse("%"+id+"%", "%"+name+"%", "%"+course+"%");
+            return students;
+        }
+
     }
 
     @PostMapping( value = "/students" )
@@ -91,5 +126,17 @@ public class StudentApi {
         return httpResponse;
     }
 
+    // getting id for student
+    @GetMapping( value = "/students/id" )
+    public HttpResponse getStudentId(){
+        HttpResponse httpResponse = new HttpResponse();
+
+        httpResponse.setHttpStatus( HttpStatus.ACCEPTED );
+        httpResponse.setMsg( Generator.generateId( studentService.getMaxId() , "STU" ) );
+        httpResponse.setOk( true );
+        httpResponse.setStatusCode( 200 );
+
+        return httpResponse;
+    }
 
 }
