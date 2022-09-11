@@ -5,7 +5,84 @@
         <sidebar></sidebar>
         
         <div id="main-content">
-            <h1 class="text-danger">student detail </h1>
+            <h1 class="text-danger h3 text-center fw-bold my-5">{{ student.name }}'s Details</h1> 
+
+            <form #studentUpdateForm="ngForm" (submit)="handleUpdateStudent(studentUpdateForm)" class="form w-50 mx-auto my-5">
+                <div class="form-group my-3">
+                    <label for="id" class="form-label fw-bold">Student's Id</label>
+                    <input [(ngModel)]="student.id" id="id" type="text" name="id" class="form-control" placeholder="Enter student's id " required autofocus disabled >
+                    <span *ngIf="error.id.hasError" id="error">{{ error.id.msg }}</span>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="name" class="form-label fw-bold">Student's Name</label>
+                    <input [(ngModel)]="student.name" id="name" type="text" name="name" class="form-control" placeholder="Enter student's name " autofocus required />
+                    <span *ngIf="error.name.hasError" id="error">{{ error.name.msg }}</span>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="dob" class="form-label fw-bold">Date of Birth</label>
+                    <input [(ngModel)]="student.dob" id="dob" type="date" name="dob" class="form-control" placeholder="Enter date of birth " required >
+                    <span *ngIf="error.dob.hasError" id="error">{{ error.dob.msg }}</span>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Gender</label>
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="d-flex gap-1">
+                            <label for="male">Male</label>
+                            <input [(ngModel)]="student.gender" type="radio" name="gender" id="male" value="1" class="form-check" required>
+                        </div>
+
+                        <div class="d-flex gap-1">
+                            <label for="female">Female</label>
+                            <input [(ngModel)]="student.gender" type="radio" name="gender" id="female" value="2" class="form-check" required >
+                        </div>
+
+                        <div class="d-flex gap-1">
+                            <label for="other">Other</label>
+                            <input [(ngModel)]="student.gender" type="radio" name="gender" id="other" value="3" class="form-check" required >
+                        </div>
+                    </div>
+                    <span *ngIf="error.gender.hasError" id="error">{{ error.gender.msg }}</span>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="phone" class="form-label fw-bold">Phone Number</label>
+                    <input [(ngModel)]="student.phone" name="phone" id="phone" type="number" class="form-control" placeholder="Enter phone number" required />
+                    <span *ngIf="error.phone.hasError" id="error">{{ error.phone.msg }}</span>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="" class="form-label fw-bold">Education</label>
+                    <select [(ngModel)]="student.education" name="education" id="" class="form-select" required >
+                        <option value="0" disabled >Choose Education</option>
+                        <option value="1">Diploma In IT</option>
+                        <option value="2">Bacheloar In IT</option>
+                        <option value="3">Master In IT</option>
+                    </select>
+                    <span *ngIf="error.education.hasError" id="error">{{ error.education.msg }}</span>
+                </div>
+
+
+                <div class="form-group my-2">
+                    <label for="" class="form-label fw-bold">Attend Courses</label>
+                    <div *ngIf="!status.isBlank && !status.isLoading" class="d-flex gap-3">
+                        <div *ngFor="let course of data.courses" class="d-flex align-items-center gap-1">
+                            <label [for]="course.id" class="form-label fw-bold">{{ course.name | titlecase }}</label>
+                            <input (change)="addAttendCourse( course.id )"  [value]="course.id" [name]="course.id" type="checkbox" [id]="course.id" [checked]="shouldCheck(course.id)" class="form-check" required/>
+                        </div>
+                    </div>
+                    <h6 *ngIf="status.isBlank || status.isLoading" class="h6 text-danger fw-bold">{{ status.isLoading ? "Loading..." : status.isBlank ? "There is no coure to show!" : "" }}</h6>
+                    <span *ngIf="error.attendCourses.hasError" id="error">{{ error.attendCourses.msg }}</span>
+                </div>  
+
+                <div class="form-group my-2">
+                    <button class="btn btn-sm btn-primary my-1 w-100">{{ isUpdating ? 'Updating...' : 'Update' }}</button>        
+                    <a routerLink="/students" class="text-danger text-center my-2 d-block fw-bold">Cancel</a>    
+                </div>
+            </form>
+
         </div>
 
     </main>

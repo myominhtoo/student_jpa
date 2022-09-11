@@ -57,9 +57,8 @@ export function studentValidate( value : any , target : string ) : void {
     let errMsg = ['attendCourses','education','gender'].includes( target )
                  ? ' must be chosen at least one!'
                  : ' must not be empty!';
-
-
-    if( value == '' || value == '0' || value == 0 || value.length == 0 ){
+                 
+    if( value == null || value == '' || value == '0' || value == 0 || value.length == 0 ){
         StudentError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} ${errMsg}` };
     }else{
         StudentError[key] = { hasError : false , msg : '' };

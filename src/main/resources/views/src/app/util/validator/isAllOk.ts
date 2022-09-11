@@ -30,7 +30,7 @@ function checkForStudent() : boolean {
 
        status = status && !StudentError[_key].hasError;
     }
-
+console.log(StudentError)
     return status;
 
 }

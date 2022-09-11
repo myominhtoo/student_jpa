@@ -43,6 +43,7 @@ export class AddStudentComponent implements OnInit {
     }
 
     isGettingId : boolean = false;
+    isAdding : boolean = false;
 
    data : {
         courses : Course[]
@@ -96,10 +97,11 @@ export class AddStudentComponent implements OnInit {
 
 
        if( form.valid && isAllOk('student') ){
+            this.isAdding = true;
             this.studentService.addStudent( this.student )
             .subscribe({
                 next : ( res ) => {
-
+                    this.isAdding = false;
                     if( res.ok ){
 
                         swal({
