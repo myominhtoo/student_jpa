@@ -1,12 +1,21 @@
-<div class="w-100 h-auto container-fluid p-0 m-0">
-    <navbar></navbar>
+<div class="w-100 h-auto container-fluid p-0 m-0 d-flex justify-content-center align-items-center row" style="height:100vh !important;">
+    <main class="col-lg-4 col-sm-6  col-none-7  card bg-snow p-5 shadow-sm rounded">
+        <form #loginForm="ngForm" (submit)="handleLogin(loginForm)" class="form">
+            <div class="form-group my-3">
+                <label for="" class="form-label fw-bold">User Id</label>
+                <input [(ngModel)]="user.id" name="id" type="text" class="form-control my-1" placeholder="Enter user id " required autofocus >
+                <span *ngIf="error.id.hasError" id="error">{{ error.id.msg }}</span>
+            </div>
 
-    <main id="main">
-        <sidebar></sidebar>
-        
-        <div id="main-content">
-            <h1 class="text-danger">login </h1>
-        </div>
+            <div class="form-group my-3">
+                <label for="" class="form-label fw-bold">Password</label>
+                <input [(ngModel)]="user.password" name="name" type="password" class="form-control my-1" placeholder="Enter password" required >
+                <span *ngIf="error.password.hasError" id="error">{{ error.password.msg }}</span>
+            </div>
 
+            <div class="form-group my-3">
+                <button class="btn btn-primary w-100">{{ status.isLoading ? 'Logging...' : 'Login' }}</button>
+            </div>
+        </form>
     </main>
 </div>
