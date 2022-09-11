@@ -1,4 +1,4 @@
-import { Component , Input } from "@angular/core";
+import { Component , EventEmitter, Input, Output } from "@angular/core";
 import { Status } from "src/app/models/Status";
 
 @Component({
@@ -19,4 +19,10 @@ export class TableComponent {
         isBlank : false
     }
 
+    //output emits
+    @Output('delete-course') deleteCourse = new EventEmitter();
+
+    @Output('delete-user') deleteUser = new EventEmitter();
+
+    @Output('delete-student') deleteStudent = new EventEmitter();
 }

@@ -16,7 +16,7 @@
                 <td>{{ data.name | titlecase }}</td>
                 <td class="d-flex gap-2">
                     <button class="btn btn-sm btn-success">Update</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
+                    <button (click)="deleteCourse.emit(data.id)" class="btn btn-sm btn-danger">Delete</button>
                 </td>             
             </tr>
         </ng-container>
@@ -28,7 +28,7 @@
                 <td>{{ data.email }}</td>
                 <td class="d-flex gap-2">
                     <button [routerLink]="'/users/'+data.id" class="btn btn-sm btn-success">Update</button>
-                    <button [routerLink]="'/users/'+data.id" class="btn btn-sm btn-danger">Delete</button>
+                    <button (click)="deleteUser.emit(data.id)" class="btn btn-sm btn-danger">Delete</button>
                 </td>       
             </tr>
         </ng-container>
@@ -42,7 +42,7 @@
                 </td>
                 <td class="d-flex gap-2">
                     <button class="btn btn-sm btn-success">Update</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
+                    <button (click)="deleteStudent.emit(data.id)" class="btn btn-sm btn-danger">Delete</button>
                 </td>       
             </tr>
         </ng-container>

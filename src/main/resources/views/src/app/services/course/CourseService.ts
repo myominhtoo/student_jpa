@@ -21,4 +21,12 @@ export default class CourseService{
         return this.httpClient.post<Response>(`${this.BASE_URL}/courses` , course );
     }
 
+    deleteCourse( courseId : string ) : Observable<Response> {
+        return this.httpClient.delete<Response>(`${this.BASE_URL}/courses/${courseId}`);
+    }
+
+    updateCourse( course : Course ) : Observable<Response> {
+        return this.httpClient.put<Response>(`${this.BASE_URL}/courses/${course.id}` , course );
+    }
+
 }

@@ -2,6 +2,7 @@ import { Component , OnInit } from '@angular/core';
 import { Course } from 'src/app/models/Course';
 import { Status } from 'src/app/models/Status';
 import CourseService from 'src/app/services/course/CourseService';
+import swal from 'sweetalert';
 
 @Component({
     selector : 'courses',
@@ -42,6 +43,18 @@ export class CoursesComponent implements OnInit {
             },
             error : ( e ) => console.log( e )
          })
+    }
+
+    handleDeleteCourse( courseId : string ) : void {
+        swal({
+            text : `Are you sure to delete ${courseId} course ? `,
+            icon : 'warning',
+            buttons : ['No','Yes'],
+        }).then( isYes => {
+            if(isYes){
+                
+            }
+        });
     }
 
 }
