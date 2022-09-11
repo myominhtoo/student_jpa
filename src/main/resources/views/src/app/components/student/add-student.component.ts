@@ -14,6 +14,7 @@ import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import isAllOk from 'src/app/util/validator/isAllOk';
 import resetAllError from 'src/app/util/resetErrors';
+import checkAuth from 'src/app/util/checkAuth';
 
 @Component({
     selector : 'add-student',
@@ -54,8 +55,20 @@ export class AddStudentComponent implements OnInit {
    error = StudentError;
 
     ngOnInit() : void {
-        this.getStudentId();
-        fetchCourses( this.coureService , { data : this.data , status : this.status } );// getting courses required for student 
+       
+        if( checkAuth() ){
+            this.getStudentId();
+            fetchCourses( this.coureService , { data : this.data , status : this.status } );// getting courses required for student 
+        }
+        else{
+
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }  
+            });
+            
+        }
 
     }
 

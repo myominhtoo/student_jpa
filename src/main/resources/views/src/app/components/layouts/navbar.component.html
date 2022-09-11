@@ -4,10 +4,13 @@
             Student Entry Project
         </h3>
 
-        <ul class="navbar-nav fw-bold h6">
+        <ul class="navbar-nav fw-bold h6 d-flex gap-3">
             <li class="nav-item d-flex flex-column align-items-center snow">
-                <span>Username & role</span>
+                <span>{{ authUser.name | titlecase }}[{{ authUser.role == 1 ? 'User' : 'Admin' }}]</span>
                 <span>{{ todayDate | date :'shortDate' }}</span>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-danger">Logout</button>
             </li>
         </ul>
     </main>

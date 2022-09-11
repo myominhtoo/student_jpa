@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
 import StudentService from 'src/app/services/student/StudentService';
+import checkAuth from 'src/app/util/checkAuth';
 import swal from 'sweetalert';
 
 @Component({
@@ -40,12 +41,26 @@ export class StudentsComponent implements OnInit {
     ){}
 
     ngOnInit(): void {
-        this.fetchStudents();
 
-        this.route.queryParams.subscribe( params => {
-            clearTimeout( this.timeout );
-            this.timeout  = setTimeout( () => this.fetchStudents() , 500 );
-        })
+       if( checkAuth() ){
+
+            this.fetchStudents();
+
+            this.route.queryParams.subscribe( params => {
+                clearTimeout( this.timeout );
+                this.timeout  = setTimeout( () => this.fetchStudents() , 500 );
+            })
+
+       }else{
+
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }
+
+            });
+
+       }
 
     }
 

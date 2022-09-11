@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Course } from 'src/app/models/Course';
 import { courseValidate } from 'src/app/util/validator/validators';
@@ -10,13 +10,14 @@ import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import isAllOk from 'src/app/util/validator/isAllOk';
 import resetAllError from 'src/app/util/resetErrors';
+import checkAuth from 'src/app/util/checkAuth';
 
 
 @Component({
     selector : 'add-course',
     templateUrl : './add-course.component.html',
 })
-export class AddCourseComponent {
+export class AddCourseComponent implements OnInit {
 
     course : Course = {
         id : '',
@@ -31,6 +32,16 @@ export class AddCourseComponent {
     courseError = CourseError;
 
     constructor( private courseService : CourseService , private router : Router ){}
+
+    ngOnInit(): void {
+        if( !checkAuth() ){
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }  
+            } );
+        }
+    }
 
     handleAddCourse( form : NgForm ) : void { 
 

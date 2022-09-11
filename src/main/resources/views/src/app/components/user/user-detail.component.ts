@@ -5,6 +5,7 @@ import UserError from 'src/app/models/error/UserError';
 import { Status } from 'src/app/models/Status';
 import { User } from 'src/app/models/User';
 import UserService from 'src/app/services/user/UserService';
+import checkAuth from 'src/app/util/checkAuth';
 import resetAllError from 'src/app/util/resetErrors';
 import checkPassword from 'src/app/util/validator/checkPassword';
 import isAllOk from 'src/app/util/validator/isAllOk';
@@ -44,9 +45,20 @@ export class UserDetailComponent implements OnInit {
 
 
     ngOnInit() : void {
-        let userId = this.route.snapshot.params["id"];
+        if( checkAuth() ){
+            let userId = this.route.snapshot.params["id"];
 
-        this.fetchUser( userId );
+             this.fetchUser( userId );
+        }else{
+            
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }
+    
+             } );
+
+        }
     }
 
     async fetchUser( userId : string ) : Promise<void> {

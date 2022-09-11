@@ -5,6 +5,7 @@ import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
 import { User } from 'src/app/models/User';
 import UserService from 'src/app/services/user/UserService';
+import checkAuth from 'src/app/util/checkAuth';
 import swal from 'sweetalert';
 
 @Component({
@@ -42,11 +43,21 @@ export class UsersComponent implements OnInit{
     }
 
     ngOnInit() : void {
-       this.fetchUsers();
-       this.route.queryParams.subscribe( params => {
-            clearTimeout( this.timeout );
-            this.timeout = setTimeout( () => this.handleSearch() , 500  );
-       })
+       if( checkAuth() ){
+            this.fetchUsers();
+            this.route.queryParams.subscribe( params => {
+                clearTimeout( this.timeout );
+                this.timeout = setTimeout( () => this.handleSearch() , 500  );
+            })
+       }else{
+
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }
+
+            } );
+       }
     }
 
     fetchUsers() : void {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { NgForm } from '@angular/forms';
 import useValidator from 'src/app/util/validator/useValidator';
@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 import { Status } from 'src/app/models/Status';
 import isAllOk from 'src/app/util/validator/isAllOk';
 import resetAllError from 'src/app/util/resetErrors';
+import checkAuth from 'src/app/util/checkAuth';
 
 @Component({
     selector : 'add-user',
     templateUrl  : './add-user.component.html',
 })
-export class AddUserComponent {
+export class AddUserComponent implements OnInit {
 
     user : User = {
         id : 'clone',//clone for validating to pass
@@ -35,6 +36,17 @@ export class AddUserComponent {
     error = UserError;
 
     constructor( private userService : UserService , private router : Router ){} 
+
+    ngOnInit(): void {
+        if( !checkAuth() ){
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }
+    
+             });
+        }
+    }
 
 
     handleAddUser( form : NgForm ) : void {

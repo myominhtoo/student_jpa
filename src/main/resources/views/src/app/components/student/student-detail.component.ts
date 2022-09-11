@@ -7,6 +7,7 @@ import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
 import CourseService from 'src/app/services/course/CourseService';
 import StudentService from 'src/app/services/student/StudentService';
+import checkAuth from 'src/app/util/checkAuth';
 import { fetchCourses } from 'src/app/util/courses';
 import handleAddCourse from 'src/app/util/handleAddCourse';
 import resetAllError from 'src/app/util/resetErrors';
@@ -55,8 +56,21 @@ export class StudentDetailComponent implements OnInit{
     error = StudentError;
 
     ngOnInit() : void {
-        this.fetchStudent( this.route.snapshot.params['id'] );
-        fetchCourses( this.coureService , { data : this.data  , status : this.status } );
+
+        if( checkAuth() ){
+            this.fetchStudent( this.route.snapshot.params['id'] );
+            fetchCourses( this.coureService , { data : this.data  , status : this.status } );
+        }else{
+
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }
+
+            });
+
+        }
+
     }
 
     async fetchStudent( studentId : string ) : Promise<void> {

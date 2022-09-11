@@ -1,7 +1,9 @@
 import { Component , OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
 import { Status } from 'src/app/models/Status';
 import CourseService from 'src/app/services/course/CourseService';
+import checkAuth from 'src/app/util/checkAuth';
 import swal from 'sweetalert';
 
 @Component({
@@ -22,10 +24,24 @@ export class CoursesComponent implements OnInit {
         isLoading : false
     }
 
-    constructor( private courseService : CourseService ){}
+    constructor( private courseService : CourseService , private router : Router ){}
 
     ngOnInit() : void {
-        this.fetchCourses();
+
+        if( checkAuth() ){
+            
+            this.fetchCourses();
+
+        }else{
+
+            this.router.navigate( ['/login'] , {
+                queryParams : {
+                    msg : 'Please login to continue!',
+                }  
+             });
+
+        }
+
     }
 
     fetchCourses() : void {
