@@ -36,18 +36,34 @@ export function userValidate( value : any, target : string ) : void {
 export function studentValidate( value : any , target : string ) : void {
     let key = target as  keyof typeof  StudentError ;
 
-    if( target == 'attendCourses' ){
-        if( value.length == 0 ){
-            StudentError[key] = { hasError : true , msg : 'Attend Courses must be at least one!' };
-        }else{
-            StudentError[key] = { hasError : false , msg : '' };
-        }
+    // if( target == 'attendCourses' || target == 'gender' || target == 'education' ){
+    //     if( value == 0 || value.length == 0 || value == '0' ){
+    //         StudentError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must be chosen at least one!` };
+    //     }else{
+    //         StudentError[key] = { hasError : false , msg : '' };
+    //     }
+    // }else{
+    //     if( value == '' || value.length == 0 ){
+    //         StudentError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must not be empty!` };
+    //     }else{
+    //         StudentError[key] = { hasError : false , msg : '' };
+    //     }
+    // }
+
+    /*
+     more fast than upper case
+    */
+
+    let errMsg = ['attendCourses','education','gender'].includes( target )
+                 ? ' must be chosen at least one!'
+                 : ' must not be empty!';
+
+
+    if( value == '' || value == '0' || value == 0 || value.length == 0 ){
+        StudentError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} ${errMsg}` };
     }else{
-        if( value == '' || value.length == 0 ){
-            StudentError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must not be empty!` };
-        }else{
-            StudentError[key] = { hasError : false , msg : '' };
-        }
+        StudentError[key] = { hasError : false , msg : '' };
     }
+
 }
 

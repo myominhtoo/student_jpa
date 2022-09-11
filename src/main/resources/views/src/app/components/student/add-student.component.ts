@@ -7,6 +7,9 @@ import StudentService from 'src/app/services/student/StudentService';
 import { fetchCourses } from 'src/app/util/courses';
 import handleAddCourse from 'src/app/util/handleAddCourse';
 import { NgForm } from '@angular/forms';
+import useValidator from 'src/app/util/validator/useValidator';
+import { studentValidate } from 'src/app/util/validator/validators';
+import StudentError from 'src/app/models/error/StudentError';
 
 @Component({
     selector : 'add-student',
@@ -39,6 +42,8 @@ export class AddStudentComponent implements OnInit {
         courses : [],
    }
 
+   error = StudentError;
+
     ngOnInit() : void {
         fetchCourses( this.coureService , { data : this.data , status : this.status } );// getting courses required for student 
 
@@ -50,7 +55,13 @@ export class AddStudentComponent implements OnInit {
 
 
     handleAddStudent( form : NgForm ) : void {
-        console.log( this.student );
+       let keys = Object.keys( this.student );
+       let values = Object.values( this.student );
+
+       useValidator( studentValidate , keys , values  );
+
+    //    console.log( this.error )
+    console.log( this.student )
     }
 
 }
