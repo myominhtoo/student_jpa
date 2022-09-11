@@ -15,8 +15,8 @@
                 <td>{{ data.id }}</td>
                 <td>{{ data.name | titlecase }}</td>
                 <td class="d-flex gap-2">
-                    <button class="btn btn-sm btn-success">Update</button>
-                    <button (click)="deleteCourse.emit(data.id)" class="btn btn-sm btn-danger">Delete</button>
+                    <button class="btn btn-sm btn-success disabled">Update</button>
+                    <button (click)="deleteCourse.emit(data.id)" class="btn btn-sm btn-danger disabled">Delete</button>
                 </td>             
             </tr>
         </ng-container>

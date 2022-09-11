@@ -7,7 +7,23 @@
         <div id="main-content">
             <h1 class="text-danger fw-bold text-center my-5 h3">Users' Management</h1>
 
-            <div class="w-75 my-1 mx-auto text-end">
+            <div class="w-75 my-1 mx-auto d-flex justify-content-between">
+                <form class="form d-flex gap-2 px-3">
+
+                    <div class="form-group">
+                        <input  (keydown)="handleChange()" [(ngModel)]="search.id" name="id" type="search" class="form-control" placeholder="User's Id">
+                    </div>
+
+                    <div class="form-group">
+                        <input (keydown)="handleChange()" [(ngModel)]="search.name" name="name" type="search" class="form-control" placeholder="User's name "/>
+                    </div>
+
+                    <div class="form-group align-items-center d-flex gap-2">
+                        <!-- <button type="submit" class="btn btn-primary btn-sm">Search</button> -->
+                        <button (click)="handleReset()" class="btn btn-danger btn-sm">Reset</button>
+                    </div>
+
+                </form>
                 <button routerLink="/add-user" class="btn btn-success btn-sm mx-3"><i class="fa-solid fa-circle-plus mx-1"></i>Create</button>
             </div>
 

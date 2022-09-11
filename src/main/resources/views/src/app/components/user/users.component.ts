@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
 import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
@@ -25,19 +26,35 @@ export class UsersComponent implements OnInit{
         'Email'
     ]
 
-    constructor( private userService : UserService ){}
+    search = {
+        id : '',
+        name : '',
+    }
+
+    timeout : ReturnType<typeof setTimeout> | undefined;
+
+    constructor( 
+        private userService : UserService,
+        private router : Router,
+        private route : ActivatedRoute
+    ){
+        // this.debounce = useDebounce( this.handleSearch , 500 );
+    }
 
     ngOnInit() : void {
        this.fetchUsers();
+       this.route.queryParams.subscribe( params => {
+            clearTimeout( this.timeout );
+            this.timeout = setTimeout( () => this.handleSearch() , 500  );
+       })
     }
 
     fetchUsers() : void {
         this.status.isLoading = true;
-        this.userService.getUsers()
+        this.userService.getUsers( this.search.id , this.search.name )
         .subscribe({
             next : ( datas ) => {
                 this.status.isLoading = false;
-
                 if( datas.length == 0 ) this.status.isBlank = true;
                 else this.status.isBlank = false;
 
@@ -68,6 +85,24 @@ export class UsersComponent implements OnInit{
                 });
             }
         });
+    }
+
+    handleChange() : void {
+        this.router.navigate(['/users'] ,
+         { queryParams : {  
+            id : this.search.id,
+            name : this.search.name
+         } } );
+    }
+
+    handleSearch() : void {       
+        this.fetchUsers();
+    }
+
+    handleReset() : void {
+        this.search.id = '';
+        this.search.name = '';
+        this.handleChange();
     }
 
 }

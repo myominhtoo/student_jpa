@@ -13,8 +13,21 @@ export default class UserService{
 
     constructor( private httpClient : HttpClient ){}
 
-    getUsers() : Observable<User[]> {
-        return this.httpClient.get<User[]>(`${this.BASE_URL}/users`);
+    getUsers( id : string, name : string) : Observable<User[]> {
+         
+        let target = '';
+
+        if( id != '' && name == '' ){
+            target = `?id=${id}`;
+        }else if ( id == '' && name != '' ){
+            target = `?name=${name}`;
+        }else if( id != '' && name != '' ){
+            target = `?id=${id}&name=${name}`;
+        }else{
+            target = '';
+        }
+
+        return this.httpClient.get<User[]>(`${this.BASE_URL}/users${target}`);
     }
 
     getUser( userId : string ) : Observable<User>{
