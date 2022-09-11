@@ -27,7 +27,7 @@
                 <button routerLink="/add-user" class="btn btn-success btn-sm mx-3"><i class="fa-solid fa-circle-plus mx-1"></i>Create</button>
             </div>
 
-            <Table [datas]="users" [columns]="columns" target="user" [status]="status" (delete-user)="handleDeleteUser($event)" >
+            <Table [datas]="users" [columns]="columns" target="user" [status]="status" [authUserId]="authUserId" (delete-user)="handleDeleteUser($event)" >
             </Table>
 
         </div>

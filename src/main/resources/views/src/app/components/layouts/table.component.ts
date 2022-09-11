@@ -19,6 +19,8 @@ export class TableComponent {
         isBlank : false
     }
 
+    @Input('authUserId') authUserId : string = '';
+
     //output emits
     @Output('delete-course') deleteCourse = new EventEmitter();
 

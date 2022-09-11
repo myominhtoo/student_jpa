@@ -6,6 +6,7 @@ import { Student } from 'src/app/models/Student';
 import { User } from 'src/app/models/User';
 import UserService from 'src/app/services/user/UserService';
 import checkAuth from 'src/app/util/checkAuth';
+import getAuthUser from 'src/app/util/getAuthUser';
 import swal from 'sweetalert';
 
 @Component({
@@ -32,6 +33,8 @@ export class UsersComponent implements OnInit{
         name : '',
     }
 
+    authUserId : string = '';
+
     timeout : ReturnType<typeof setTimeout> | undefined;
 
     constructor( 
@@ -48,7 +51,9 @@ export class UsersComponent implements OnInit{
             this.route.queryParams.subscribe( params => {
                 clearTimeout( this.timeout );
                 this.timeout = setTimeout( () => this.handleSearch() , 500  );
-            })
+            });
+
+            this.authUserId = getAuthUser().id;
        }else{
 
             this.router.navigate( ['/login'] , {
