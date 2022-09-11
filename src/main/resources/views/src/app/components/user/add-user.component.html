@@ -8,38 +8,43 @@
 
             <h1 class="text-danger fw-bold text-center my-5 h3">Add User</h1>
 
-            <form action="" class="form my-3 w-50 mx-auto">
+            <form #userAddForm="ngForm" (submit)="handleAddUser(userAddForm)" class="form my-3 w-50 mx-auto">
                 <div class="form-group my-3">
-                    <label for="" class="form-label fw-bold">Username</label>
-                    <input [(ngModel)]="user.name" name="name" type="text" class="form-control" placeholder="Enter username" required autofocus/>
+                    <label for="name" class="form-label fw-bold">Username</label>
+                    <input [(ngModel)]="user.name" id="name" name="name" type="text" class="form-control" placeholder="Enter username" required autofocus/>
+                    <span *ngIf="error.name.hasError" id="error">{{ error.name.msg }}</span>
                 </div>
 
                 <div class="form-group my-3">
-                    <label for="" class="form-label fw-bold">Email Address</label>
-                    <input [(ngModel)]="user.email" name="email" type="text" class="form-control" placeholder="Enter email address" required/>
+                    <label for="email" class="form-label fw-bold">Email Address</label>
+                    <input [(ngModel)]="user.email" id="email" name="email" type="text" class="form-control" placeholder="Enter email address" required/>
+                    <span *ngIf="error.email.hasError" id="error">{{ error.email.msg }}</span>
                 </div>
 
                 <div class="form-group my-3">
-                    <label for="" class="form-label fw-bold">Password</label>
-                    <input [(ngModel)]="user.password" name="password" type="text" class="form-control" placeholder="Enter password" required />
+                    <label for="password" class="form-label fw-bold">Password</label>
+                    <input [(ngModel)]="user.password" id="password" name="password" type="password" class="form-control" placeholder="Enter password" required />
+                    <span *ngIf="error.password.hasError" id="error">{{ error.password.msg }}</span>
                 </div>
 
                 <div class="form-group my-3">
-                    <label for="" class="form-label fw-bold">Confirm-password</label>
-                    <input [(ngModel)]="user.confirm" name="confirm" type="text" class="form-control" placeholder="Enter confirm-password" required />
+                    <label for="confirm" class="form-label fw-bold">Confirm-password</label>
+                    <input [(ngModel)]="user.confirm" id="confirm" name="confirm" type="password" class="form-control" placeholder="Enter confirm-password" required />
+                    <span *ngIf="error.confirm.hasError" id="error">{{ error.confirm.msg }}</span>
                 </div>
 
                 <div class="form-group my-3">
                     <label for="" class="form-label fw-bold">Role</label>
                     <select [(ngModel)]="user.role" name="role" id="" class="form-select">
-                        <option value="" disabled>Choose Role</option>
+                        <option value="-1" disabled>Choose Role</option>
                         <option value="0">User</option>
-                        <option value="0">Admin</option>
-                    </select>
+                        <option value="1">Admin</option>
+                    </select>   
+                    <span *ngIf="error.role.hasError" id="error">{{ error.role.msg }}</span>
                 </div>
 
                 <div class="form-group my-3">
-                    <button class="btn btn-sm btn-primary w-100">Add</button>
+                    <button class="btn btn-sm btn-primary w-100">{{ status.isLoading ? 'Adding...' : 'Add' }}</button>
                     <a routerLink="/users" class="text-danger text-center h6 d-block my-1 fw-bold">Cancel</a>
                 </div>
             </form>

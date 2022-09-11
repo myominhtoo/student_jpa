@@ -15,15 +15,22 @@ export function courseValidate( value : string , target : string ) : void {
 
 }
 
-export function userValidate( value : string , target : string ) : void {
+export function userValidate( value : any, target : string ) : void {
     let key = target as keyof typeof UserError;
 
-    if( value.length == 0 || value == '' ){
-        UserError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must not be empty! ` };
+    if( target == 'role' ){
+        if( value == -1  || value == '' || value.length == 0 ){
+            UserError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must chosen at least one! ` };
+        }else{
+            UserError[key] = { hasError : false , msg : '' };
+        }
     }else{
-        UserError[key] = { hasError : false , msg : '' };
+        if( value == '' ||  value.length == 0  ){
+            UserError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must not be empty! ` };
+        }else{
+            UserError[key] = { hasError : false , msg : '' };
+        }
     }
-
 }
 
 export function studentValidate( value : any , target : string ) : void {
