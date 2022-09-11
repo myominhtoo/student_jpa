@@ -33,4 +33,9 @@ export default class StudentService{
         return this.httpClient.put<Response>( `${this.BASE_URL}/students/${student.id}` , student );
     }
 
+
+    getId() : Observable<Response> {
+        return this.httpClient.get<Response>( `${this.BASE_URL}/students/id`);
+    }
+
 }
