@@ -52,7 +52,16 @@ export class CoursesComponent implements OnInit {
             buttons : ['No','Yes'],
         }).then( isYes => {
             if(isYes){
-                
+                this.courseService.deleteCourse( courseId )
+                .subscribe({
+                    next : ( res ) => {
+                        swal({
+                            text : res.msg,
+                            icon : res.ok ? 'success' : 'warning'
+                        });
+                    },
+                    error : ( e ) => console.log( e )
+                });
             }
         });
     }
