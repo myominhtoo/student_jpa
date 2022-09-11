@@ -8,6 +8,7 @@ import { Status } from 'src/app/models/Status';
 import { Response } from 'src/app/models/Response';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
+import isAllOk from 'src/app/util/validator/isAllOk';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class AddCourseComponent {
         courseValidate( this.course.id , 'id' );
         courseValidate( this.course.name , 'name' );
 
-        if( form.valid ){
+        if( form.valid && isAllOk('course') ){
 
             this.status.isLoading = true;
 

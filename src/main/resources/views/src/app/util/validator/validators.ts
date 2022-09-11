@@ -20,7 +20,7 @@ export function userValidate( value : any, target : string ) : void {
 
     if( target == 'role' ){
         if( value == -1  || value == '' || value.length == 0 ){
-            UserError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must chosen at least one! ` };
+            UserError[key] = { hasError : true , msg : `${getUpperFirstchar(target)} must be chosen at least one! ` };
         }else{
             UserError[key] = { hasError : false , msg : '' };
         }

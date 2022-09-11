@@ -9,6 +9,7 @@ import checkPassword from 'src/app/util/validator/checkPassword';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { Status } from 'src/app/models/Status';
+import isAllOk from 'src/app/util/validator/isAllOk';
 
 @Component({
     selector : 'add-user',
@@ -17,7 +18,7 @@ import { Status } from 'src/app/models/Status';
 export class AddUserComponent {
 
     user : User = {
-        id : '',
+        id : 'clone',//clone for validating to pass
         name : '',
         email : '',
         password : '',
@@ -47,7 +48,7 @@ export class AddUserComponent {
 
 
 
-        if( form.valid ){
+        if( form.valid && isAllOk('user') ){
             if( checkPassword( this.user.password , this.user.confirm ) ){
                 this.status.isLoading = true;
 
