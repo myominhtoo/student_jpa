@@ -1,6 +1,7 @@
 <div class="w-100 h-auto container-fluid p-0 m-0 d-flex justify-content-center align-items-center row" style="height:100vh !important;">
     <main class="col-lg-4 col-sm-6  col-none-7  card bg-snow p-5 shadow-sm rounded">
         <form #loginForm="ngForm" (submit)="handleLogin(loginForm)" class="form">
+            <h4 class="h4 text-center my-2 text-danger">{{ msg }}</h4>
             <div class="form-group my-3">
                 <label for="" class="form-label fw-bold">User Id</label>
                 <input [(ngModel)]="user.id" name="id" type="text" class="form-control my-1" placeholder="Enter user id " required autofocus >

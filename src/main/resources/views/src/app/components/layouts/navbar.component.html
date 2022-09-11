@@ -10,7 +10,7 @@
                 <span>{{ todayDate | date :'shortDate' }}</span>
             </li>
             <li class="nav-item">
-                <button class="btn btn-sm btn-danger">Logout</button>
+                <button (click)="handleLogout()" class="btn btn-sm btn-danger">Logout</button>
             </li>
         </ul>
     </main>

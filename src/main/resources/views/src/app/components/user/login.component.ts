@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import UserError from 'src/app/models/error/UserError';
 import UserService from 'src/app/services/user/UserService';
@@ -8,13 +8,13 @@ import { userValidate } from 'src/app/util/validator/validators';
 import isAllOk from 'src/app/util/validator/isAllOk';
 import { Status } from 'src/app/models/Status';
 import swal from 'sweetalert';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector : 'login',
     templateUrl : './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
     user : User = {
         id : '',
@@ -30,9 +30,15 @@ export class LoginComponent {
         isBlank : false
     }
 
+    msg : string = '';
+
     error = UserError ; 
 
-    constructor( private userService : UserService ,private router : Router  ){}
+    constructor( private userService : UserService ,private router : Router , private route : ActivatedRoute  ){}
+
+    ngOnInit(): void {
+        this.msg = this.route.snapshot.queryParams['msg'];
+    }
 
     handleLogin( form : NgForm ) : void {
 
