@@ -19,4 +19,8 @@ export default {
         hasError : false,
         msg : '',
     },
+    attendCourses : {
+        hasError : false,
+        msg : '',
+    }
 }
