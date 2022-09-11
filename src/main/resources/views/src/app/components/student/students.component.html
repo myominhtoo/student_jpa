@@ -11,7 +11,7 @@
                 <button routerLink="/add-student" class="btn btn-success btn-sm mx-3"><i class="fa-solid fa-circle-plus mx-1"></i>Create</button>
             </div>
 
-            <Table [datas]="students" [status]="status" [columns]="columns" target="student" ></Table>
+            <Table [datas]="students" [status]="status" [columns]="columns" target="student" (delete-student)="handleDeleteStudent($event)" ></Table>
 
         </div>
 
