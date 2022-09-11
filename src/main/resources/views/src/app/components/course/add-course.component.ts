@@ -9,6 +9,7 @@ import { Response } from 'src/app/models/Response';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import isAllOk from 'src/app/util/validator/isAllOk';
+import resetAllError from 'src/app/util/resetErrors';
 
 
 @Component({
@@ -62,6 +63,10 @@ export class AddCourseComponent {
             })
         }
 
+    }
+
+    ngOnDestroy() : void {
+        resetAllError('course');
     }
 
 }

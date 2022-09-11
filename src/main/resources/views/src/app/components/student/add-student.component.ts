@@ -13,6 +13,7 @@ import StudentError from 'src/app/models/error/StudentError';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import isAllOk from 'src/app/util/validator/isAllOk';
+import resetAllError from 'src/app/util/resetErrors';
 
 @Component({
     selector : 'add-student',
@@ -117,6 +118,10 @@ export class AddStudentComponent implements OnInit {
             });
        }
 
+    }
+
+    ngOnDestroy() : void {
+        resetAllError('student');
     }
 
 }

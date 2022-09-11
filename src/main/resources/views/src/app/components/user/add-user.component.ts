@@ -10,6 +10,7 @@ import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { Status } from 'src/app/models/Status';
 import isAllOk from 'src/app/util/validator/isAllOk';
+import resetAllError from 'src/app/util/resetErrors';
 
 @Component({
     selector : 'add-user',
@@ -76,6 +77,10 @@ export class AddUserComponent {
 
             }
         }
+    }
+
+    ngOnDestroy() : void {
+        resetAllError('user');
     }
 
 }
