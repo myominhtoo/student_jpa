@@ -59,8 +59,9 @@ export class StudentsComponent implements OnInit {
                         swal({
                             text : res.msg,
                             icon : res.ok ? 'success' : 'warning'
-                        });
-                        if( res.ok ) this.fetchStudents();
+                        }).then( () => {
+                            if( res.ok ) this.fetchStudents();
+                        })
                     },
                     error : ( e ) => console.log( e )
                 });

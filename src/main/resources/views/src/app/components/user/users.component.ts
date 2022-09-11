@@ -60,8 +60,9 @@ export class UsersComponent implements OnInit{
                         swal({
                             text : res.msg,
                             icon : res.ok ? 'success' : 'warning'
-                        });
-                        if( res.ok ) this.fetchUsers();
+                        }).then( () => {
+                            if(res.ok) this.fetchUsers();
+                        })
                     },
                     error : ( e ) => console.log( e )
                 });
