@@ -13,8 +13,29 @@ export default class StudentService{
 
     constructor( private httpClient : HttpClient ){}
 
-    getStudents() : Observable<Student[]> {
-       return  this.httpClient.get<Student[]>(`${this.BASE_URL}/students`);
+    getStudents( id : string , name : string , course : string ) : Observable<Student[]> {
+
+        let target = '';
+
+        if( id != '' && name == '' && course == '' ){
+            target = `?id=${id}`;
+        }else if( id == '' && name != '' && course == '' ){
+            target = `?name=${name}`;
+        }else if( id == '' && name == '' && course != '' ){
+            target = `?course=${course}`;
+        }else if( id  != '' && name != '' && course == '' ){
+            target = `?id=${id}&name=${name}`;
+        }else if( id != '' && name == '' && course != '' ){
+            target = `?id=${id}&course=${course}`;
+        }else if( id == '' && name != '' && course != ''  ){
+            target = `?name=${name}&course=${course}`;
+        }else if( id != '' && name != '' && course != '' ){
+            target = `?id=${id}&name=${name}&course=${course}`;
+        }else{
+            target = '';
+        }
+
+       return  this.httpClient.get<Student[]>(`${this.BASE_URL}/students${target}`);
     }
 
     getStudent( studentId : string ) : Observable<Student> {

@@ -11,11 +11,11 @@
                 <form class="form d-flex gap-2 px-3">
 
                     <div class="form-group">
-                        <input  (keydown)="handleChange()" [(ngModel)]="search.id" name="id" type="search" class="form-control" placeholder="User's Id">
+                        <input  (keyup)="handleChange()" [(ngModel)]="search.id" name="id" type="search" class="form-control" placeholder="User's Id">
                     </div>
 
                     <div class="form-group">
-                        <input (keydown)="handleChange()" [(ngModel)]="search.name" name="name" type="search" class="form-control" placeholder="User's name "/>
+                        <input (keyup)="handleChange()" [(ngModel)]="search.name" name="name" type="search" class="form-control" placeholder="User's name "/>
                     </div>
 
                     <div class="form-group align-items-center d-flex gap-2">

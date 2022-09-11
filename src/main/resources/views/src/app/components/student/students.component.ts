@@ -1,4 +1,5 @@
 import { Component , OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
 import StudentService from 'src/app/services/student/StudentService';
@@ -23,16 +24,35 @@ export class StudentsComponent implements OnInit {
         isLoading : false
     }
 
-    constructor( private studentService : StudentService ){}
+    search = {
+        id : '',
+        name : '',
+        course : '',
+    }
+
+    timeout : ReturnType<typeof setTimeout> | undefined;
+    
+    
+    constructor( 
+        private studentService : StudentService ,
+        private router : Router ,
+        private route : ActivatedRoute  
+    ){}
 
     ngOnInit(): void {
         this.fetchStudents();
+
+        this.route.queryParams.subscribe( params => {
+            clearTimeout( this.timeout );
+            this.timeout  = setTimeout( () => this.fetchStudents() , 500 );
+        })
+
     }
 
     fetchStudents() : void {
         this.status.isLoading = true;
 
-        this.studentService.getStudents()
+        this.studentService.getStudents( this.search.id , this.search.name , this.search.course )
         .subscribe({
             next : ( datas ) => {
                 this.status.isLoading = false;
@@ -69,4 +89,19 @@ export class StudentsComponent implements OnInit {
         });
     }
 
+    handleChange() : void {
+        this.router.navigate( ['/students'] , {
+            queryParams : {
+                id : this.search.id,
+                name : this.search.name,
+                course : this.search.course
+            }                           
+        } );
+    }
+
+    handleReset() : void {
+        this.search = { id : '' , name : '' ,course : ''};
+        this.fetchStudents();
+    }
+                                 
 }

@@ -7,7 +7,26 @@
         <div id="main-content">
             <h1 class="text-danger h3 text-center my-5 fw-bold">Student Management</h1>
 
-            <div class="w-75 my-1 mx-auto text-end">
+            <div class="w-75 my-1 d-flex justify-content-between mx-auto text-end">
+
+                <form action="" class="form d-flex align-items-center gap-2 w-75 mx-3">
+                    <div class="form-group w-25">
+                        <input (keyup)="handleChange()" [(ngModel)]="search.id" name="id" type="search" class="form-control" placeholder="Student's Id ">
+                    </div>
+
+                    <div class="form-group w-25">
+                        <input (keyup)="handleChange()" [(ngModel)]="search.name" name="name" type="search" class="form-control" placeholder="Student's Name" />
+                    </div>
+
+                    <div class="form-group w-25">
+                        <input (keyup)="handleChange()" [(ngModel)]="search.course" name="course" type="search" class="form-control" placeholder="Course's Name" />
+                    </div>
+
+                    <div class="form-group">
+                        <button (click)="handleReset()" class="btn btn-sm btn-danger">Reset</button>
+                    </div>
+                </form>
+
                 <button routerLink="/add-student" class="btn btn-success btn-sm mx-3"><i class="fa-solid fa-circle-plus mx-1"></i>Create</button>
             </div>
 
