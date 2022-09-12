@@ -6,6 +6,7 @@ import { Status } from 'src/app/models/Status';
 import { User } from 'src/app/models/User';
 import UserService from 'src/app/services/user/UserService';
 import checkAuth from 'src/app/util/checkAuth';
+import getAuthUser from 'src/app/util/getAuthUser';
 import resetAllError from 'src/app/util/resetErrors';
 import checkPassword from 'src/app/util/validator/checkPassword';
 import isAllOk from 'src/app/util/validator/isAllOk';
@@ -119,6 +120,15 @@ export class UserDetailComponent implements OnInit {
                         .subscribe({
                             next : ( res ) => {
                                 if( res.ok ){
+
+                                    if(this.user.id == getAuthUser().id ){
+                                        localStorage.setItem(window.atob('authUser'),JSON.stringify({
+                                            id : this.user.id,
+                                            name : this.user.name,
+                                            role : this.user.role,
+                                        }));
+                                    }
+
                                     swal({
                                         text : res.msg,
                                         icon : 'success'

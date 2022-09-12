@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 span,p,h1,h2,h3,h4,h5,h5,div{
-    font-family: 'JetBrains Mono', monospace !important;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 :root{
