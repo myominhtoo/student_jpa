@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import checkAuth from "src/app/util/checkAuth";
 import getAuthUser from "src/app/util/getAuthUser";
 import swal from "sweetalert";
 
@@ -20,7 +21,9 @@ export class NavbarComponent implements OnInit {
     constructor( private router : Router ){}
 
     ngOnInit(): void {
-        this.authUser = getAuthUser();
+        if( checkAuth() ){
+            this.authUser = getAuthUser();
+        }
     }
 
     handleLogout() : void {
