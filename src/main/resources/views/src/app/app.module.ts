@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
     UserDetailComponent,
     HomeComponent,
     LoginComponent,
-    CoursesComponent
+    CoursesComponent,
   ],
   imports: [
     BrowserModule,

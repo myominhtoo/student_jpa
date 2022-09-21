@@ -3,6 +3,7 @@ package com.lionel.student_jpa.controller.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +15,11 @@ import static com.lionel.student_jpa.controller.constants.Const.*;
 
 @RestController
 @RequestMapping( value = "/api" )
+@CrossOrigin( origins = "http://localhost:3000" )
 public class ReportApi
 {
     private ReportService reportService;
+    private final String EXPORTED_PATH = "D:\\datas\\reports\\";
 
     @Autowired
     public ReportApi( ReportService reportService ){
@@ -49,7 +52,7 @@ public class ReportApi
                 httpResponse.setHttpStatus( HttpStatus.OK );
                 httpResponse.setOk( true );
                 httpResponse.setStatusCode( HttpStatus.OK.value() );
-                httpResponse.setMsg("Successfully Reported!");
+                httpResponse.setMsg( this.EXPORTED_PATH + target +"."+ type);
             }catch( Exception e ){
                 httpResponse.setOk( false );
                 httpResponse.setMsg("There was error in reporting!");

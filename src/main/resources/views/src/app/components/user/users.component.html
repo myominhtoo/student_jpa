@@ -21,6 +21,8 @@
                     <div class="form-group align-items-center d-flex gap-2">
                         <!-- <button type="submit" class="btn btn-primary btn-sm">Search</button> -->
                         <button (click)="handleReset()" class="btn btn-danger btn-sm">Reset</button>
+                        <report-control [isReporting]="report.isReporting" target="user" (make-report)='handleReport($event)'></report-control>
+                        <!-- <download-btn [url]="report.downloadUrl"></download-btn> -->
                     </div>
 
                 </form>

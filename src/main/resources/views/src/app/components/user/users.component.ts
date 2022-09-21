@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
+import { Report } from 'src/app/models/Report';
 import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
 import { User } from 'src/app/models/User';
+import ReportService from 'src/app/services/report/ReportService';
 import UserService from 'src/app/services/user/UserService';
 import checkAuth from 'src/app/util/checkAuth';
 import getAuthUser from 'src/app/util/getAuthUser';
@@ -20,6 +22,12 @@ export class UsersComponent implements OnInit{
     status : Status  = {
         isBlank : false,
         isLoading : false,
+    }
+
+    report : Report = {
+        isReporting : false,
+        ok : false,
+        downloadUrl :'',
     }
 
     columns : string[] = [
@@ -40,7 +48,8 @@ export class UsersComponent implements OnInit{
     constructor( 
         private userService : UserService,
         private router : Router,
-        private route : ActivatedRoute
+        private route : ActivatedRoute,
+        private reportService : ReportService
     ){
         // this.debounce = useDebounce( this.handleSearch , 500 );
     }
@@ -119,6 +128,33 @@ export class UsersComponent implements OnInit{
         this.search.id = '';
         this.search.name = '';
         this.handleChange();
+    }
+
+    handleReport( payload : { type : string , target : string } ){
+        this.report.isReporting = true;
+        this.reportService._report( payload.type , payload.target )
+        .subscribe({
+            next : ( res ) => {
+                this.report.isReporting = false;
+
+                if( res.ok ){
+                    // this.report.ok = true;
+                    // this.report.downloadUrl = 'file:///'+res.msg;
+                    // console.log(this.report.downloadUrl)
+                    swal({
+                        text : `Successfully Reported! Check ${res.msg}`,
+                        icon : 'success'
+                    });
+                }else{
+                    swal({
+                        text : res.msg,
+                        icon : 'warning',
+                    });
+                }
+
+            },
+            error : e => console.log(e)
+        });
     }
 
 }

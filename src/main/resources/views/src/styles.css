@@ -152,3 +152,7 @@ Table table{
 button{
     font-weight:bold !important;
 }
+
+#dropdown:hover{
+    cursor: pointer;
+}
