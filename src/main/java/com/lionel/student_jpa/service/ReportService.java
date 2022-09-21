@@ -42,7 +42,6 @@ public class ReportService {
 
     public void _export( String type , String target ) throws JRException{
          String path = this.getPathForTarget( target );
-         System.out.println(path);
         this.source = new JRBeanCollectionDataSource(
             target.equals("course")
             ? this.courseService.findAll()
