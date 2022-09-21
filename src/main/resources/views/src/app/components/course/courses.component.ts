@@ -1,8 +1,10 @@
 import { Component , OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
+import { Report } from 'src/app/models/Report';
 import { Status } from 'src/app/models/Status';
 import CourseService from 'src/app/services/course/CourseService';
+import ReportService from 'src/app/services/report/ReportService';
 import checkAuth from 'src/app/util/checkAuth';
 import swal from 'sweetalert';
 
@@ -24,7 +26,13 @@ export class CoursesComponent implements OnInit {
         isLoading : false
     }
 
-    constructor( private courseService : CourseService , private router : Router ){}
+    report : Report = {
+        isReporting : false,
+        ok : false,
+        downloadUrl :'',
+    }
+
+    constructor( private courseService : CourseService , private router : Router , private reportService : ReportService ){}
 
     ngOnInit() : void {
 
@@ -79,6 +87,33 @@ export class CoursesComponent implements OnInit {
                     error : ( e ) => console.log( e )
                 });
             }
+        });
+    }
+
+    handleReport( payload : { type : string , target : string } ){
+        this.report.isReporting = true;
+        this.reportService._report( payload.type , payload.target )
+        .subscribe({
+            next : ( res ) => {
+                this.report.isReporting = false;
+
+                if( res.ok ){
+                    // this.report.ok = true;
+                    // this.report.downloadUrl = 'file:///'+res.msg;
+                    // console.log(this.report.downloadUrl)
+                    swal({
+                        text : `Successfully Reported! Check ${res.msg}`,
+                        icon : 'success'
+                    });
+                }else{
+                    swal({
+                        text : res.msg,
+                        icon : 'warning',
+                    });
+                }
+
+            },
+            error : e => console.log(e)
         });
     }
 
