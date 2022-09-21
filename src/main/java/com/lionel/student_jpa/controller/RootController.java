@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.lionel.student_jpa.controller.constants.Const;
+import com.lionel.student_jpa.service.ReportService;
 import com.lionel.student_jpa.utils.Auth;
 import com.lionel.student_jpa.utils.SetHeader;
 
@@ -16,6 +17,9 @@ public class RootController {
 
 	@Autowired
 	HttpServletResponse res;
+
+	@Autowired
+	private ReportService reportService;
 
     
     @GetMapping( value = "/" )

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,8 +34,7 @@ public class UserController {
 	
 
     @GetMapping( value = "/login" )
-	public ModelAndView getLoginPage()
-	{
+	public ModelAndView getLoginPage() throws JRException {
 		SetHeader.make( res );
 		
 		return new ModelAndView( "LGN001" , "user" , new User() );
