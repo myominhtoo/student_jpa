@@ -22,8 +22,9 @@
                         <input (keyup)="handleChange()" [(ngModel)]="search.course" name="course" type="search" class="form-control" placeholder="Course's Name" />
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group d-flex  gap-2">
                         <button (click)="handleReset()" class="btn btn-sm btn-danger">Reset</button>
+                        <report-control [isReporting]="report.isReporting" target="student" (make-report)='handleReport($event)'></report-control>
                     </div>
                 </form>
 

@@ -1,7 +1,9 @@
 import { Component , OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Report } from 'src/app/models/Report';
 import { Status } from 'src/app/models/Status';
 import { Student } from 'src/app/models/Student';
+import ReportService from 'src/app/services/report/ReportService';
 import StudentService from 'src/app/services/student/StudentService';
 import checkAuth from 'src/app/util/checkAuth';
 import swal from 'sweetalert';
@@ -31,13 +33,20 @@ export class StudentsComponent implements OnInit {
         course : '',
     }
 
+    report : Report = {
+        isReporting : false,
+        ok : false,
+        downloadUrl :'',
+    }
+
     timeout : ReturnType<typeof setTimeout> | undefined;
     
     
     constructor( 
         private studentService : StudentService ,
         private router : Router ,
-        private route : ActivatedRoute  
+        private route : ActivatedRoute,
+        private reportService : ReportService
     ){}
 
     ngOnInit(): void {
@@ -117,6 +126,33 @@ export class StudentsComponent implements OnInit {
     handleReset() : void {
         this.search = { id : '' , name : '' ,course : ''};
         this.fetchStudents();
+    }
+
+    handleReport( payload : { type : string , target : string } ){
+        this.report.isReporting = true;
+        this.reportService._report( payload.type , payload.target )
+        .subscribe({
+            next : ( res ) => {
+                this.report.isReporting = false;
+
+                if( res.ok ){
+                    // this.report.ok = true;
+                    // this.report.downloadUrl = 'file:///'+res.msg;
+                    // console.log(this.report.downloadUrl)
+                    swal({
+                        text : `Successfully Reported! Check ${res.msg}`,
+                        icon : 'success'
+                    });
+                }else{
+                    swal({
+                        text : res.msg,
+                        icon : 'warning',
+                    });
+                }
+
+            },
+            error : e => console.log(e)
+        });
     }
                                  
 }
